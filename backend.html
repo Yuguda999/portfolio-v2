@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend Engineering - Yuguda Muhammed</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .animated-gradient-section { /* Different gradient for section pages for variety */
+            background: linear-gradient(135deg, #1f2937, #374151, #111827);
+            background-size: 400% 400%;
+            animation: gradientSectionAnimation 25s ease infinite;
+        }
+        @keyframes gradientSectionAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .project-card {
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUpProject 0.6s ease-out forwards;
+        }
+        .project-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 30px -5px rgba(0, 191, 255, 0.2); /* Sky blue shadow */
+        }
+        @keyframes fadeInUpProject {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .skill-tag {
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .skill-tag:hover {
+            background-color: #0ea5e9; /* Tailwind sky-500 */
+            color: #ffffff;
+            transform: scale(1.05);
+        }
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #38bdf8; /* sky-400 */
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        .section-title-underline::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #38bdf8; /* sky-400 */
+            margin: 16px auto 0;
+            border-radius: 2px;
+        }
+        /* For staggered animation of project cards */
+        .projects-grid .project-card:nth-child(1) { animation-delay: 0.2s; }
+        .projects-grid .project-card:nth-child(2) { animation-delay: 0.4s; }
+        .projects-grid .project-card:nth-child(3) { animation-delay: 0.6s; }
+        /* Add more if needed */
+
+        .content-fade-in {
+            opacity: 0;
+            animation: fadeInContent 1s ease-out forwards;
+        }
+        @keyframes fadeInContent {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Styles for background animations */
+        header, #about-backend, #projects, #skills, #contact {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Make sure content is above animations */
+        header > div, #about-backend > div, #projects > div, #skills > div, #contact > div {
+            position: relative;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 animated-gradient-section">
+
+    <nav class="sticky top-0 z-50 bg-gray-800 bg-opacity-90 backdrop-blur-lg shadow-xl">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-xl font-bold text-sky-400 hover:text-sky-300 transition-colors">
+                Yuguda Muhammed
+            </a>
+            <div class="hidden md:flex space-x-6 text-sm md:text-base">
+                <a href="index.html#portfolios" class="nav-link text-gray-300 hover:text-sky-400">All Portfolios</a>
+                <a href="backend.html" class="nav-link text-sky-400 active">Backend</a>
+                <a href="ml.html" class="nav-link text-gray-300 hover:text-sky-400">Machine Learning</a>
+                <a href="combined.html" class="nav-link text-gray-300 hover:text-sky-400">Combined AI</a>
+                <a href="#contact" class="bg-sky-500 hover:bg-sky-600 text-white font-medium py-2 px-4 rounded-md transition-transform transform hover:scale-105 text-xs md:text-sm">Contact</a>
+            </div>
+            <!-- Mobile menu button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-300 hover:text-sky-400 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu, hidden by default -->
+        <div id="mobile-menu" class="hidden bg-gray-800 bg-opacity-95 md:hidden">
+            <div class="px-4 py-3 space-y-3">
+                <a href="index.html#portfolios" class="block text-gray-300 hover:text-sky-400 py-2">All Portfolios</a>
+                <a href="backend.html" class="block text-sky-400 py-2">Backend</a>
+                <a href="ml.html" class="block text-gray-300 hover:text-sky-400 py-2">Machine Learning</a>
+                <a href="combined.html" class="block text-gray-300 hover:text-sky-400 py-2">Combined AI</a>
+                <a href="#contact" class="block bg-sky-500 hover:bg-sky-600 text-white font-medium py-2 px-4 rounded-md mt-4 inline-block">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="py-20 md:py-32 bg-gray-800 relative overflow-hidden content-fade-in">
+        <!-- Animation will be added here by p5.js -->
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <div class="text-6xl text-sky-400 mb-6 inline-block"><i class="fas fa-server"></i></div>
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Backend Software Engineering</h1>
+            <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                Crafting high-performance, scalable, and resilient backend systems, APIs, and data pipelines that power modern applications.
+            </p>
+        </div>
+    </header>
+
+    <section id="about-backend" class="py-16 md:py-20 bg-gray-800 bg-opacity-60 content-fade-in" style="animation-delay: 0.2s;">
+        <div class="container mx-auto px-6">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-6 section-title-underline">My Approach to Backend Development</h2>
+                <p class="text-gray-300 leading-relaxed">
+                    I focus on building clean, maintainable, and efficient backend solutions. My experience spans across designing RESTful & GraphQL APIs, managing complex data workflows, ensuring application security, and optimizing for performance and scalability. I thrive on leveraging technologies like Python (FastAPI, Django, Flask), PostgreSQL, Redis, and cloud platforms (GCP, AWS) to bring robust digital products to life.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-16 md:py-20 content-fade-in" style="animation-delay: 0.4s;">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16 section-title-underline">Featured Backend Projects</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 projects-grid">
+
+                <div class="project-card bg-gray-800 rounded-xl shadow-xl overflow-hidden flex flex-col">
+                    <img src="https://placehold.co/600x400/1e293b/93c5fd?text=CampusPQ+Project" alt="CampusPQ Project" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-semibold mb-3 text-sky-400">CampusPQ</h3>
+                        <p class="text-gray-300 text-sm mb-4 flex-grow">
+                            CBT platform with AI-based recommendations and chatbot guidance for students. Utilized vector embeddings and similarity search for intelligent content discovery. Deployed on AWS.
+                        </p>
+                        <div class="mb-4">
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">Django</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">PostgreSQL</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">OpenAI</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">VectorDB</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">AWS</span>
+                        </div>
+                        <div class="mt-auto">
+                             <a href="#" class="text-sky-400 hover:text-sky-300 font-medium transition-colors">View Details (Request Demo)</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card bg-gray-800 rounded-xl shadow-xl overflow-hidden flex flex-col">
+                    <img src="https://placehold.co/600x400/1e293b/93c5fd?text=Bitsaac+Contributions" alt="Bitsaac Inc. Contributions" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-semibold mb-3 text-sky-400">Backend Systems @ Bitsaac Inc.</h3>
+                        <p class="text-gray-300 text-sm mb-4 flex-grow">
+                            Developed scalable backend systems for AI products. Engineered RESTful APIs for social listening, content generation, and marketing automation. Integrated Firebase, Google Sheets, and social media APIs. Achieved 30% query efficiency boost.
+                        </p>
+                        <div class="mb-4">
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">FastAPI</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">Flask</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">PostgreSQL</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">Redis</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">Docker</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">GCP</span>
+                        </div>
+                        <div class="mt-auto">
+                             <a href="#" class="text-sky-400 hover:text-sky-300 font-medium transition-colors">View Details (Coming Soon)</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card bg-gray-800 rounded-xl shadow-xl overflow-hidden flex flex-col">
+                    <img src="https://placehold.co/600x400/1e293b/93c5fd?text=FastAPI+AI+Chatbot" alt="FastAPI AI Chatbot" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-semibold mb-3 text-sky-400">FastAPI AI Chatbot</h3>
+                        <p class="text-gray-300 text-sm mb-4 flex-grow">
+                            A scalable chatbot API built with FastAPI, integrated with OpenAI's GPT API. Features user authentication, chat threads with history tracking, Redis caching, and background task handling with Celery.
+                        </p>
+                        <div class="mb-4">
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">FastAPI</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">Redis</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">Celery</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">PostgreSQL</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">OpenAI</span>
+                        </div>
+                        <div class="mt-auto">
+                             <a href="https://github.com/Yuguda999/fastapi_ai_chatbot" target="_blank" class="text-sky-400 hover:text-sky-300 font-medium transition-colors">View on GitHub <i class="fab fa-github ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card bg-gray-800 rounded-xl shadow-xl overflow-hidden flex flex-col">
+                    <img src="https://placehold.co/600x400/1e293b/93c5fd?text=URL+Shortener+API" alt="URL Shortener API" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-semibold mb-3 text-sky-400">URL Shortener API</h3>
+                        <p class="text-gray-300 text-sm mb-4 flex-grow">
+                            A RESTful API for URL shortening built with Django and Django Rest Framework. Features include creating short URLs, retrieving original URLs, updating and deleting short URLs, and viewing access statistics.
+                        </p>
+                        <div class="mb-4">
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">Django</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">DRF</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">RESTful API</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">Swagger</span>
+                        </div>
+                        <div class="mt-auto">
+                             <a href="https://github.com/Yuguda999/url_shortener" target="_blank" class="text-sky-400 hover:text-sky-300 font-medium transition-colors">View on GitHub <i class="fab fa-github ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card bg-gray-800 rounded-xl shadow-xl overflow-hidden flex flex-col">
+                    <img src="https://placehold.co/600x400/1e293b/93c5fd?text=Audiora" alt="Audiora" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-semibold mb-3 text-sky-400">Audiora - Music & Video Streaming Platform</h3>
+                        <p class="text-gray-300 text-sm mb-4 flex-grow">
+                            A Django-based API for a music and video streaming platform that connects content creators with users. Features user management, digital wallet system, campaign management, and streaming rewards.
+                        </p>
+                        <div class="mb-4">
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">Django</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">DRF</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">PostgreSQL</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">JWT</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">Paystack</span>
+                        </div>
+                        <div class="mt-auto">
+                             <a href="https://github.com/Yuguda999/Audiora" target="_blank" class="text-sky-400 hover:text-sky-300 font-medium transition-colors">View on GitHub <i class="fab fa-github ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card bg-gray-800 rounded-xl shadow-xl overflow-hidden flex flex-col">
+                    <img src="https://placehold.co/600x400/1e293b/93c5fd?text=Tagora" alt="Tagora" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-semibold mb-3 text-sky-400">Tagora - Visual Search API</h3>
+                        <p class="text-gray-300 text-sm mb-4 flex-grow">
+                            A visual search system that allows finding similar images based on visual content. Uses CLIP embeddings and FAISS indexing to provide fast and accurate image similarity search through a REST API.
+                        </p>
+                        <div class="mb-4">
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">FastAPI</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">PyTorch</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">FAISS</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">CLIP</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-200 bg-sky-700 mr-2 mb-2">REST API</span>
+                        </div>
+                        <div class="mt-auto">
+                             <a href="https://github.com/Yuguda999/Tagora" target="_blank" class="text-sky-400 hover:text-sky-300 font-medium transition-colors">View on GitHub <i class="fab fa-github ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+                </div>
+        </div>
+    </section>
+
+    <section id="skills" class="py-16 md:py-20 bg-gray-800 bg-opacity-60 content-fade-in" style="animation-delay: 0.6s;">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16 section-title-underline">Core Backend Skills</h2>
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold text-sky-300 mb-4">Languages & Frameworks</h3>
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Python</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">FastAPI</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Django (DRF)</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Flask</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">JavaScript (Node.js - Basic)</span>
+                    </div>
+                </div>
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold text-sky-300 mb-4">Databases & Caching</h3>
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">PostgreSQL</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">MySQL</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Redis</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">VectorDB (Qdrant, ChromaDB)</span>
+                    </div>
+                </div>
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold text-sky-300 mb-4">Tools & Platforms</h3>
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Docker</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Git & GitHub</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">GCP</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">AWS</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Nginx</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Firebase</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Celery</span>
+                    </div>
+                </div>
+                 <div>
+                    <h3 class="text-xl font-semibold text-sky-300 mb-4">Concepts & Architecture</h3>
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">RESTful API Design</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Microservices</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Scalability & Performance</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">CI/CD</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Authentication (JWT, OAuth2)</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Asynchronous Programming</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 md:py-20 content-fade-in" style="animation-delay: 0.8s;">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 section-title-underline">Let's Connect</h2>
+            <p class="text-gray-300 mb-8 max-w-xl mx-auto">
+                I'm always excited to discuss new projects, innovative ideas, or potential collaborations. Feel free to reach out!
+            </p>
+            <a href="mailto:elemenx93@gmail.com" class="bg-sky-500 hover:bg-sky-600 text-white font-semibold py-3 px-6 rounded-lg text-lg transition-transform transform hover:scale-105 shadow-lg inline-flex items-center">
+                <i class="fas fa-paper-plane mr-2"></i> Send an Email
+            </a>
+        </div>
+    </section>
+
+    <footer class="py-10 bg-gray-900 text-center border-t border-gray-700">
+        <div class="container mx-auto px-6">
+            <div class="mb-4 space-x-6">
+                <a href="https://linkedin.com/in/your-linkedin-profile" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-sky-400 transition-colors text-2xl"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/Yuguda999" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-sky-400 transition-colors text-2xl"><i class="fab fa-github"></i></a>
+                </div>
+            <p class="text-gray-500 text-sm">&copy; <span id="currentYearFooter"></span> Yuguda Muhammed. Built with passion and Tailwind CSS.</p>
+            <p class="text-xs text-gray-600 mt-2">
+                <a href="index.html" class="hover:text-sky-500">Main Portfolio</a> |
+                <a href="ml.html" class="hover:text-sky-500">ML Portfolio</a> |
+                <a href="combined.html" class="hover:text-sky-500">Combined AI Portfolio</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Add p5.js for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+
+    <script>
+        document.getElementById('currentYearFooter').textContent = new Date().getFullYear();
+
+        // Intersection Observer for animations (can be enhanced)
+        const animatedElements = document.querySelectorAll('.project-card, .content-fade-in');
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1 // Trigger when 10% of the element is visible
+        };
+
+        const observerCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target);
+                }
+            });
+        };
+
+        const animationObserver = new IntersectionObserver(observerCallback, observerOptions);
+        animatedElements.forEach(el => animationObserver.observe(el));
+
+        // Background animations for different sections
+        // ============================================
+
+        // Header Section - Grid Data Flow
+        let headerSketch = function(p) {
+            let grid = [];
+            const cellSize = 40;
+            let cols, rows;
+            let dataPackets = [];
+            const numPackets = 15;
+
+            p.setup = function() {
+                let headerElement = document.querySelector('header');
+                let canvas = p.createCanvas(headerElement.offsetWidth, headerElement.offsetHeight);
+                canvas.parent(headerElement);
+                canvas.style('position', 'absolute');
+                canvas.style('top', '0');
+                canvas.style('left', '0');
+                canvas.style('z-index', '0');
+                canvas.style('opacity', '0.2');
+
+                // Calculate grid dimensions
+                cols = Math.floor(p.width / cellSize) + 1;
+                rows = Math.floor(p.height / cellSize) + 1;
+
+                // Create grid
+                for (let i = 0; i < cols; i++) {
+                    grid[i] = [];
+                    for (let j = 0; j < rows; j++) {
+                        grid[i][j] = {
+                            x: i * cellSize,
+                            y: j * cellSize,
+                            active: false,
+                            brightness: 0
+                        };
+                    }
+                }
+
+                // Create data packets
+                for (let i = 0; i < numPackets; i++) {
+                    dataPackets.push({
+                        x: p.random(p.width),
+                        y: p.random(p.height),
+                        size: p.random(4, 8),
+                        speedX: p.random(-2, 2),
+                        speedY: p.random(-2, 2),
+                        color: p.color(56, 189, 248, 200) // Sky blue
+                    });
+                }
+            };
+
+            p.draw = function() {
+                p.clear();
+
+                // Draw grid
+                p.stroke(56, 189, 248, 30); // Sky blue with low opacity
+                p.strokeWeight(0.5);
+
+                for (let i = 0; i < cols; i++) {
+                    for (let j = 0; j < rows; j++) {
+                        let cell = grid[i][j];
+
+                        // Decrease brightness over time
+                        if (cell.brightness > 0) {
+                            cell.brightness -= 5;
+                        }
+
+                        // Draw grid lines
+                        p.line(cell.x, 0, cell.x, p.height);
+                        p.line(0, cell.y, p.width, cell.y);
+
+                        // Draw active cells
+                        if (cell.brightness > 0) {
+                            p.noStroke();
+                            p.fill(56, 189, 248, cell.brightness);
+                            p.rect(cell.x, cell.y, cellSize, cellSize);
+                        }
+                    }
+                }
+
+                // Update and draw data packets
+                for (let packet of dataPackets) {
+                    // Draw packet
+                    p.noStroke();
+                    p.fill(packet.color);
+                    p.ellipse(packet.x, packet.y, packet.size);
+
+                    // Update position
+                    packet.x += packet.speedX;
+                    packet.y += packet.speedY;
+
+                    // Activate grid cells
+                    let i = Math.floor(packet.x / cellSize);
+                    let j = Math.floor(packet.y / cellSize);
+                    if (i >= 0 && i < cols && j >= 0 && j < rows) {
+                        grid[i][j].brightness = 100;
+                    }
+
+                    // Bounce off edges
+                    if (packet.x < 0 || packet.x > p.width) packet.speedX *= -1;
+                    if (packet.y < 0 || packet.y > p.height) packet.speedY *= -1;
+                }
+            };
+
+            p.windowResized = function() {
+                let headerElement = document.querySelector('header');
+                p.resizeCanvas(headerElement.offsetWidth, headerElement.offsetHeight);
+
+                // Recalculate grid
+                cols = Math.floor(p.width / cellSize) + 1;
+                rows = Math.floor(p.height / cellSize) + 1;
+
+                // Recreate grid
+                grid = [];
+                for (let i = 0; i < cols; i++) {
+                    grid[i] = [];
+                    for (let j = 0; j < rows; j++) {
+                        grid[i][j] = {
+                            x: i * cellSize,
+                            y: j * cellSize,
+                            active: false,
+                            brightness: 0
+                        };
+                    }
+                }
+            };
+        };
+
+        // About Section - Binary Code Rain
+        let aboutSketch = function(p) {
+            let binaryStrings = [];
+            const numStrings = 15;
+
+            p.setup = function() {
+                let aboutElement = document.getElementById('about-backend');
+                let canvas = p.createCanvas(aboutElement.offsetWidth, aboutElement.offsetHeight);
+                canvas.parent(aboutElement);
+                canvas.style('position', 'absolute');
+                canvas.style('top', '0');
+                canvas.style('left', '0');
+                canvas.style('z-index', '0');
+                canvas.style('opacity', '0.1');
+
+                for (let i = 0; i < numStrings; i++) {
+                    binaryStrings.push({
+                        x: p.random(p.width),
+                        y: p.random(-200, 0),
+                        length: p.random(10, 30),
+                        speed: p.random(1, 3),
+                        chars: []
+                    });
+
+                    // Generate binary string
+                    for (let j = 0; j < binaryStrings[i].length; j++) {
+                        binaryStrings[i].chars.push(Math.random() > 0.5 ? '1' : '0');
+                    }
+                }
+            };
+
+            p.draw = function() {
+                p.clear();
+                p.textSize(12);
+                p.textAlign(p.CENTER);
+
+                for (let str of binaryStrings) {
+                    for (let j = 0; j < str.chars.length; j++) {
+                        let alpha = p.map(j, 0, str.chars.length - 1, 200, 50);
+                        p.fill(56, 189, 248, alpha); // Sky blue with fading opacity
+                        p.text(str.chars[j], str.x, str.y + j * 15);
+                    }
+
+                    // Update position
+                    str.y += str.speed;
+
+                    // Reset when off screen
+                    if (str.y > p.height) {
+                        str.y = p.random(-200, 0);
+                        str.x = p.random(p.width);
+
+                        // Regenerate binary string
+                        str.chars = [];
+                        for (let j = 0; j < str.length; j++) {
+                            str.chars.push(Math.random() > 0.5 ? '1' : '0');
+                        }
+                    }
+
+                    // Randomly change some characters
+                    if (p.frameCount % 10 === 0) {
+                        let idx = Math.floor(p.random(str.chars.length));
+                        str.chars[idx] = Math.random() > 0.5 ? '1' : '0';
+                    }
+                }
+            };
+
+            p.windowResized = function() {
+                let aboutElement = document.getElementById('about-backend');
+                p.resizeCanvas(aboutElement.offsetWidth, aboutElement.offsetHeight);
+            };
+        };
+
+        // Projects Section - Server Rack Visualization
+        let projectsSketch = function(p) {
+            let servers = [];
+            const numServers = 20;
+
+            p.setup = function() {
+                let projectsElement = document.getElementById('projects');
+                let canvas = p.createCanvas(projectsElement.offsetWidth, projectsElement.offsetHeight);
+                canvas.parent(projectsElement);
+                canvas.style('position', 'absolute');
+                canvas.style('top', '0');
+                canvas.style('left', '0');
+                canvas.style('z-index', '0');
+                canvas.style('opacity', '0.15');
+
+                // Create servers
+                for (let i = 0; i < numServers; i++) {
+                    servers.push({
+                        x: p.random(p.width),
+                        y: p.random(p.height),
+                        width: p.random(30, 60),
+                        height: 15,
+                        blinkRate: p.random(30, 120),
+                        blinkState: p.random([true, false]),
+                        lastBlink: 0
+                    });
+                }
+            };
+
+            p.draw = function() {
+                p.clear();
+                p.noStroke();
+
+                for (let server of servers) {
+                    // Draw server rack
+                    p.fill(30, 41, 59); // Dark blue-gray
+                    p.rect(server.x, server.y, server.width, server.height, 2);
+
+                    // Draw status lights
+                    let lightSize = 3;
+                    let lightSpacing = 8;
+                    let numLights = Math.floor(server.width / lightSpacing) - 1;
+
+                    for (let i = 0; i < numLights; i++) {
+                        // Blink lights at different rates
+                        if (p.frameCount % server.blinkRate === 0) {
+                            server.blinkState = !server.blinkState;
+                        }
+
+                        // Random light colors
+                        if (i === 0) {
+                            // Power light is always on
+                            p.fill(56, 189, 248); // Sky blue
+                        } else if (server.blinkState && i % 3 === 0) {
+                            p.fill(56, 189, 248, 200); // Sky blue
+                        } else if (!server.blinkState && i % 2 === 0) {
+                            p.fill(56, 189, 248, 150); // Sky blue
+                        } else {
+                            p.fill(100, 100, 100, 100); // Gray (inactive)
+                        }
+
+                        p.ellipse(server.x + i * lightSpacing + lightSpacing, server.y + server.height/2, lightSize);
+                    }
+                }
+            };
+
+            p.windowResized = function() {
+                let projectsElement = document.getElementById('projects');
+                p.resizeCanvas(projectsElement.offsetWidth, projectsElement.offsetHeight);
+            };
+        };
+
+        // Skills Section - Floating Code Symbols
+        let skillsSketch = function(p) {
+            let symbols = [];
+            const numSymbols = 25;
+            const codeSymbols = ['{ }', '[ ]', '( )', '< >', '=>', '&&', '||', '++', '--', '!=', '==', '===', '://', '.js', '.py', 'API', 'SQL', 'GET', 'POST'];
+
+            p.setup = function() {
+                let skillsElement = document.getElementById('skills');
+                let canvas = p.createCanvas(skillsElement.offsetWidth, skillsElement.offsetHeight);
+                canvas.parent(skillsElement);
+                canvas.style('position', 'absolute');
+                canvas.style('top', '0');
+                canvas.style('left', '0');
+                canvas.style('z-index', '0');
+                canvas.style('opacity', '0.1');
+
+                for (let i = 0; i < numSymbols; i++) {
+                    symbols.push({
+                        x: p.random(p.width),
+                        y: p.random(p.height),
+                        symbol: p.random(codeSymbols),
+                        size: p.random(10, 18),
+                        speedX: p.random(-0.5, 0.5),
+                        speedY: p.random(-0.5, 0.5),
+                        rotation: p.random(p.TWO_PI),
+                        rotSpeed: p.random(-0.02, 0.02)
+                    });
+                }
+            };
+
+            p.draw = function() {
+                p.clear();
+                p.textAlign(p.CENTER, p.CENTER);
+
+                for (let symbol of symbols) {
+                    p.push();
+                    p.translate(symbol.x, symbol.y);
+                    p.rotate(symbol.rotation);
+                    p.fill(56, 189, 248, 150); // Sky blue
+                    p.textSize(symbol.size);
+                    p.text(symbol.symbol, 0, 0);
+                    p.pop();
+
+                    // Update position and rotation
+                    symbol.x += symbol.speedX;
+                    symbol.y += symbol.speedY;
+                    symbol.rotation += symbol.rotSpeed;
+
+                    // Wrap around edges
+                    if (symbol.x < 0) symbol.x = p.width;
+                    if (symbol.x > p.width) symbol.x = 0;
+                    if (symbol.y < 0) symbol.y = p.height;
+                    if (symbol.y > p.height) symbol.y = 0;
+                }
+            };
+
+            p.windowResized = function() {
+                let skillsElement = document.getElementById('skills');
+                p.resizeCanvas(skillsElement.offsetWidth, skillsElement.offsetHeight);
+            };
+        };
+
+        // Contact Section - API Connection Lines
+        let contactSketch = function(p) {
+            let nodes = [];
+            const numNodes = 8;
+            let connections = [];
+
+            p.setup = function() {
+                let contactElement = document.getElementById('contact');
+                let canvas = p.createCanvas(contactElement.offsetWidth, contactElement.offsetHeight);
+                canvas.parent(contactElement);
+                canvas.style('position', 'absolute');
+                canvas.style('top', '0');
+                canvas.style('left', '0');
+                canvas.style('z-index', '0');
+                canvas.style('opacity', '0.15');
+
+                // Create nodes
+                for (let i = 0; i < numNodes; i++) {
+                    nodes.push({
+                        x: p.random(p.width),
+                        y: p.random(p.height),
+                        size: p.random(4, 8),
+                        speedX: p.random(-0.5, 0.5),
+                        speedY: p.random(-0.5, 0.5)
+                    });
+                }
+
+                // Create connections
+                for (let i = 0; i < numNodes; i++) {
+                    for (let j = i + 1; j < numNodes; j++) {
+                        if (p.random() < 0.3) { // 30% chance of connection
+                            connections.push({
+                                from: i,
+                                to: j,
+                                active: false,
+                                progress: 0,
+                                speed: p.random(0.005, 0.02),
+                                lastActive: 0
+                            });
+                        }
+                    }
+                }
+            };
+
+            p.draw = function() {
+                p.clear();
+
+                // Draw connections
+                for (let conn of connections) {
+                    let fromNode = nodes[conn.from];
+                    let toNode = nodes[conn.to];
+
+                    // Draw connection line
+                    p.stroke(56, 189, 248, 50); // Sky blue with low opacity
+                    p.strokeWeight(0.5);
+                    p.line(fromNode.x, fromNode.y, toNode.x, toNode.y);
+
+                    // Randomly activate connections
+                    if (!conn.active && p.random() < 0.01) {
+                        conn.active = true;
+                        conn.progress = 0;
+                    }
+
+                    // Draw data packet traveling along connection
+                    if (conn.active) {
+                        let x = p.lerp(fromNode.x, toNode.x, conn.progress);
+                        let y = p.lerp(fromNode.y, toNode.y, conn.progress);
+
+                        p.noStroke();
+                        p.fill(56, 189, 248); // Sky blue
+                        p.ellipse(x, y, 4);
+
+                        // Update progress
+                        conn.progress += conn.speed;
+
+                        // Reset when complete
+                        if (conn.progress > 1) {
+                            conn.active = false;
+                            conn.lastActive = p.frameCount;
+                        }
+                    }
+                }
+
+                // Draw nodes
+                p.noStroke();
+                p.fill(56, 189, 248); // Sky blue
+                for (let node of nodes) {
+                    p.ellipse(node.x, node.y, node.size);
+
+                    // Update position
+                    node.x += node.speedX;
+                    node.y += node.speedY;
+
+                    // Bounce off edges
+                    if (node.x < 0 || node.x > p.width) node.speedX *= -1;
+                    if (node.y < 0 || node.y > p.height) node.speedY *= -1;
+                }
+            };
+
+            p.windowResized = function() {
+                let contactElement = document.getElementById('contact');
+                p.resizeCanvas(contactElement.offsetWidth, contactElement.offsetHeight);
+
+                // Adjust node positions
+                for (let node of nodes) {
+                    if (node.x > p.width) node.x = p.width - 10;
+                    if (node.y > p.height) node.y = p.height - 10;
+                }
+            };
+        };
+
+        // Initialize all sketches when the page is loaded
+        window.addEventListener('load', function() {
+            new p5(headerSketch);
+            new p5(aboutSketch);
+            new p5(projectsSketch);
+            new p5(skillsSketch);
+            new p5(contactSketch);
+        });
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

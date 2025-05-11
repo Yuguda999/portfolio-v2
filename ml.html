@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning Engineering - Yuguda Muhammed</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .animated-gradient-section { /* Gradient for ML section page */
+            background: linear-gradient(135deg, #0f766e, #134e4a, #042f2e); /* Teal shades */
+            background-size: 400% 400%;
+            animation: gradientSectionAnimation 25s ease infinite;
+        }
+        @keyframes gradientSectionAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .project-card {
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUpProject 0.6s ease-out forwards;
+        }
+        .project-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 30px -5px rgba(20, 184, 166, 0.2); /* Teal shadow (teal-500) */
+        }
+        @keyframes fadeInUpProject {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .skill-tag {
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .skill-tag:hover {
+            background-color: #0d9488; /* Tailwind teal-600 for a slightly darker hover */
+            color: #ffffff;
+            transform: scale(1.05);
+        }
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #14b8a6; /* teal-500 */
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        .section-title-underline::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #14b8a6; /* teal-500 */
+            margin: 16px auto 0;
+            border-radius: 2px;
+        }
+        /* For staggered animation of project cards */
+        .projects-grid .project-card:nth-child(1) { animation-delay: 0.2s; }
+        .projects-grid .project-card:nth-child(2) { animation-delay: 0.4s; }
+        .projects-grid .project-card:nth-child(3) { animation-delay: 0.6s; }
+        .projects-grid .project-card:nth-child(4) { animation-delay: 0.8s; } /* Added for potential 4th card */
+        .projects-grid .project-card:nth-child(5) { animation-delay: 1.0s; } /* Added for potential 5th card */
+
+
+        .content-fade-in {
+            opacity: 0;
+            animation: fadeInContent 1s ease-out forwards;
+        }
+        @keyframes fadeInContent {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Styles for background animations */
+        header, #about-ml, #projects, #skills, #contact {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Make sure content is above animations */
+        header > div, #about-ml > div, #projects > div, #skills > div, #contact > div {
+            position: relative;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 animated-gradient-section">
+
+    <nav class="sticky top-0 z-50 bg-gray-800 bg-opacity-90 backdrop-blur-lg shadow-xl">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-xl font-bold text-teal-400 hover:text-teal-300 transition-colors">
+                Yuguda Muhammed
+            </a>
+            <div class="hidden md:flex space-x-4 md:space-x-6 text-xs sm:text-sm md:text-base">
+                <a href="index.html#portfolios" class="nav-link text-gray-300 hover:text-teal-400">All Portfolios</a>
+                <a href="backend.html" class="nav-link text-gray-300 hover:text-teal-400">Backend</a>
+                <a href="ml.html" class="nav-link text-teal-400 active">Machine Learning</a>
+                <a href="combined.html" class="nav-link text-gray-300 hover:text-teal-400">Combined AI</a>
+                <a href="#contact" class="bg-teal-500 hover:bg-teal-600 text-white font-medium py-2 px-4 rounded-md transition-transform transform hover:scale-105 text-xs md:text-sm">Contact</a>
+            </div>
+            <!-- Mobile menu button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-300 hover:text-teal-400 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu, hidden by default -->
+        <div id="mobile-menu" class="hidden bg-gray-800 bg-opacity-95 md:hidden">
+            <div class="px-4 py-3 space-y-3">
+                <a href="index.html#portfolios" class="block text-gray-300 hover:text-teal-400 py-2">All Portfolios</a>
+                <a href="backend.html" class="block text-gray-300 hover:text-teal-400 py-2">Backend</a>
+                <a href="ml.html" class="block text-teal-400 py-2">Machine Learning</a>
+                <a href="combined.html" class="block text-gray-300 hover:text-teal-400 py-2">Combined AI</a>
+                <a href="#contact" class="block bg-teal-500 hover:bg-teal-600 text-white font-medium py-2 px-4 rounded-md mt-4 inline-block">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="py-20 md:py-32 bg-gray-800 relative overflow-hidden content-fade-in">
+        <!-- Animation will be added here by p5.js -->
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <div class="text-6xl text-teal-400 mb-6 inline-block"><i class="fas fa-brain"></i></div>
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Machine Learning Engineering</h1>
+            <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                Developing intelligent systems, from data to deployment, leveraging cutting-edge AI, NLP, and computer vision techniques.
+            </p>
+        </div>
+    </header>
+
+    <section id="about-ml" class="py-16 md:py-20 bg-gray-800 bg-opacity-60 content-fade-in" style="animation-delay: 0.2s;">
+        <div class="container mx-auto px-6">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-6 section-title-underline">My Approach to Machine Learning</h2>
+                <p class="text-gray-300 leading-relaxed">
+                    I am passionate about building ethical and impactful AI solutions. My expertise covers the full ML lifecycle: from data acquisition and preprocessing, model development (using PyTorch, Scikit-learn), and rigorous evaluation, to MLOps practices for robust deployment. I specialize in areas like Natural Language Processing (NLP), Retrieval-Augmented Generation (RAG), predictive modeling, and computer vision.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-16 md:py-20 content-fade-in" style="animation-delay: 0.4s;">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16 section-title-underline">Featured Machine Learning Projects</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 projects-grid">
+
+                <div class="project-card bg-gray-800 rounded-xl shadow-xl overflow-hidden flex flex-col">
+                    <img src="https://placehold.co/600x400/0f766e/a7f3d0?text=Clothing+Classifier+V2" alt="E-Commerce Clothing Classifier" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-semibold mb-3 text-teal-400">E-Commerce Clothing Classifier</h3>
+                        <p class="text-gray-300 text-sm mb-4 flex-grow">
+                            Created a multi-class image classifier to automatically tag clothing items. Applied transfer learning techniques with PyTorch and evaluated performance using accuracy and confusion matrices.
+                        </p>
+                        <div class="mb-4">
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-100 bg-teal-700 mr-2 mb-2">PyTorch</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-100 bg-teal-700 mr-2 mb-2">Computer Vision</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-100 bg-teal-700 mr-2 mb-2">Transfer Learning</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-100 bg-teal-700 mr-2 mb-2">Image Classification</span>
+                        </div>
+                        <div class="mt-auto">
+                             <a href="#" class="text-teal-400 hover:text-teal-300 font-medium transition-colors">View Details (Coming Soon)</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card bg-gray-800 rounded-xl shadow-xl overflow-hidden flex flex-col">
+                    <img src="https://placehold.co/600x400/0f766e/a7f3d0?text=Next+Word+Prediction" alt="Next Word Prediction" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-semibold mb-3 text-teal-400">Next Word Prediction with Transformers</h3>
+                        <p class="text-gray-300 text-sm mb-4 flex-grow">
+                            Implemented multiple transformer architectures for next word prediction, including an encoder-only transformer from scratch, a GPT-style decoder, and fine-tuned GPT-2 models. Trained on Sherlock Holmes stories for text generation.
+                        </p>
+                        <div class="mb-4">
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-100 bg-teal-700 mr-2 mb-2">PyTorch</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-100 bg-teal-700 mr-2 mb-2">Transformers</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-100 bg-teal-700 mr-2 mb-2">NLP</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-100 bg-teal-700 mr-2 mb-2">Hugging Face</span>
+                        </div>
+                        <div class="mt-auto">
+                             <a href="https://github.com/Yuguda999/next_word_prediction" target="_blank" class="text-teal-400 hover:text-teal-300 font-medium transition-colors">View on GitHub <i class="fab fa-github ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card bg-gray-800 rounded-xl shadow-xl overflow-hidden flex flex-col">
+                    <img src="https://placehold.co/600x400/0f766e/a7f3d0?text=Loan+Approval+Prediction" alt="Loan Approval Prediction" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-semibold mb-3 text-teal-400">Loan Approval Prediction</h3>
+                        <p class="text-gray-300 text-sm mb-4 flex-grow">
+                            Built a machine learning model to predict loan approval status based on applicant information. Analyzed key factors influencing loan decisions and implemented multiple ML algorithms to find the best-performing model.
+                        </p>
+                        <div class="mb-4">
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-100 bg-teal-700 mr-2 mb-2">Scikit-learn</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-100 bg-teal-700 mr-2 mb-2">Pandas</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-100 bg-teal-700 mr-2 mb-2">EDA</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-100 bg-teal-700 mr-2 mb-2">Classification</span>
+                        </div>
+                        <div class="mt-auto">
+                             <a href="https://github.com/Yuguda999/loan_approval_prediction" target="_blank" class="text-teal-400 hover:text-teal-300 font-medium transition-colors">View on GitHub <i class="fab fa-github ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card bg-gray-800 rounded-xl shadow-xl overflow-hidden flex flex-col">
+                    <img src="https://placehold.co/600x400/0f766e/a7f3d0?text=Hybrid+LSTM-LR+Forecasting" alt="Hybrid LSTM-LR Forecasting" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-semibold mb-3 text-teal-400">Hybrid LSTM-LR Forecasting</h3>
+                        <p class="text-gray-300 text-sm mb-4 flex-grow">
+                            Implemented a hybrid forecasting model for stock price prediction, combining LSTM neural networks and Linear Regression. The model analyzes historical stock data to predict future price movements with improved accuracy.
+                        </p>
+                        <div class="mb-4">
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-100 bg-teal-700 mr-2 mb-2">PyTorch</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-100 bg-teal-700 mr-2 mb-2">LSTM</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-100 bg-teal-700 mr-2 mb-2">Time Series</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-100 bg-teal-700 mr-2 mb-2">Forecasting</span>
+                        </div>
+                        <div class="mt-auto">
+                             <a href="https://github.com/Yuguda999/hybrid_lstm_lr_forecasting" target="_blank" class="text-teal-400 hover:text-teal-300 font-medium transition-colors">View on GitHub <i class="fab fa-github ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card bg-gray-800 rounded-xl shadow-xl overflow-hidden flex flex-col">
+                    <img src="https://placehold.co/600x400/0f766e/a7f3d0?text=Receipt+Classifier" alt="Receipt Classifier" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-semibold mb-3 text-teal-400">Receipt Classifier</h3>
+                        <p class="text-gray-300 text-sm mb-4 flex-grow">
+                            A machine learning system that classifies receipts as either real or AI-generated using a hybrid image-text approach. Combines EfficientNet-B0 for image features and BERT for text features extracted via TrOCR.
+                        </p>
+                        <div class="mb-4">
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-100 bg-teal-700 mr-2 mb-2">PyTorch</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-100 bg-teal-700 mr-2 mb-2">EfficientNet</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-100 bg-teal-700 mr-2 mb-2">BERT</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-100 bg-teal-700 mr-2 mb-2">OCR</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-100 bg-teal-700 mr-2 mb-2">Computer Vision</span>
+                        </div>
+                        <div class="mt-auto">
+                             <a href="https://github.com/Yuguda999/receipt_classifier" target="_blank" class="text-teal-400 hover:text-teal-300 font-medium transition-colors">View on GitHub <i class="fab fa-github ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card bg-gray-800 rounded-xl shadow-xl overflow-hidden flex flex-col">
+                    <img src="https://placehold.co/600x400/0f766e/a7f3d0?text=SPAM+Classification" alt="SPAM Classification" class="w-full h-48 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-semibold mb-3 text-teal-400">SPAM Classification</h3>
+                        <p class="text-gray-300 text-sm mb-4 flex-grow">
+                            A text classification model for detecting spam messages. Implements various NLP techniques and machine learning algorithms to accurately identify unwanted messages.
+                        </p>
+                        <div class="mb-4">
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-100 bg-teal-700 mr-2 mb-2">NLP</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-100 bg-teal-700 mr-2 mb-2">Classification</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-100 bg-teal-700 mr-2 mb-2">Text Analysis</span>
+                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-teal-100 bg-teal-700 mr-2 mb-2">Scikit-learn</span>
+                        </div>
+                        <div class="mt-auto">
+                             <a href="https://github.com/Yuguda999/SPAM-CLASSIFICATION" target="_blank" class="text-teal-400 hover:text-teal-300 font-medium transition-colors">View on GitHub <i class="fab fa-github ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+                </div>
+        </div>
+    </section>
+
+    <section id="skills" class="py-16 md:py-20 bg-gray-800 bg-opacity-60 content-fade-in" style="animation-delay: 0.6s;">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16 section-title-underline">Core Machine Learning Skills</h2>
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold text-teal-300 mb-4">ML & AI Libraries/Frameworks</h3>
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">PyTorch</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Scikit-learn</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">LangChain</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">OpenAI API</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Gemini API</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">DeepSeek</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Transformers</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Pandas & NumPy</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Scikit-image</span>
+                    </div>
+                </div>
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold text-teal-300 mb-4">ML Concepts & Techniques</h3>
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Retrieval-Augmented Generation (RAG)</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">NLP (Semantic Search, Text Comprehension, Q&A)</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Computer Vision (Image Classification, OCR)</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Predictive Modeling & Regression</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Clustering (K-Means, Hierarchical)</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Vector Databases (Qdrant, ChromaDB, Pinecone)</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">MLOps (Principles & Practices)</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Prompt Engineering & LLMs</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">ETL & ELT Pipelines</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Hypothesis Testing</span>
+                    </div>
+                </div>
+                 <div>
+                    <h3 class="text-xl font-semibold text-teal-300 mb-4">Supporting Tools & Platforms</h3>
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Python</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Docker</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Git & GitHub</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">GCP & AWS</span>
+                        <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">NannyML</span>
+                         <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">PyStark</span>
+                         <span class="skill-tag bg-gray-700 text-gray-200 py-2 px-4 rounded-lg text-sm">Postman</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 md:py-20 content-fade-in" style="animation-delay: 0.8s;">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 section-title-underline">Let's Innovate Together</h2>
+            <p class="text-gray-300 mb-8 max-w-xl mx-auto">
+                Interested in leveraging AI and Machine Learning for your next project? I'd love to hear about it.
+            </p>
+            <a href="mailto:elemenx93@gmail.com" class="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 px-6 rounded-lg text-lg transition-transform transform hover:scale-105 shadow-lg inline-flex items-center">
+                <i class="fas fa-paper-plane mr-2"></i> Get in Touch
+            </a>
+        </div>
+    </section>
+
+    <footer class="py-10 bg-gray-900 text-center border-t border-gray-700">
+        <div class="container mx-auto px-6">
+            <div class="mb-4 space-x-6">
+                <a href="https://linkedin.com/in/your-linkedin-profile" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-teal-400 transition-colors text-2xl"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/Yuguda999" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-teal-400 transition-colors text-2xl"><i class="fab fa-github"></i></a>
+                </div>
+            <p class="text-gray-500 text-sm">&copy; <span id="currentYearFooter"></span> Yuguda Muhammed. Driven by Data and Innovation.</p>
+            <p class="text-xs text-gray-600 mt-2">
+                <a href="index.html" class="hover:text-teal-500">Main Portfolio</a> |
+                <a href="backend.html" class="hover:text-teal-500">Backend Portfolio</a> |
+                <a href="combined.html" class="hover:text-teal-500">Combined AI Portfolio</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Add p5.js for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('currentYearFooter').textContent = new Date().getFullYear();
+
+        // Intersection Observer for animations on scroll
+        const animatedElements = document.querySelectorAll('.project-card, .content-fade-in');
+        const observerOptions = {
+            root: null, // observes intersections relative to the viewport
+            rootMargin: '0px',
+            threshold: 0.1 // callback is run when 10% of the target is visible
+        };
+
+        const observerCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running'; // Start the animation
+                    observer.unobserve(entry.target); // Stop observing once animated
+                }
+            });
+        };
+
+        // Create and start the observer
+        const animationObserver = new IntersectionObserver(observerCallback, observerOptions);
+        animatedElements.forEach(el => animationObserver.observe(el));
+
+        // Background animations for different sections
+        // ============================================
+
+        // Header Section - Neural Network Visualization
+        let headerSketch = function(p) {
+            let nodes = [];
+            let connections = [];
+            const numNodes = 40;
+            const numLayers = 4;
+
+            p.setup = function() {
+                let headerElement = document.querySelector('header');
+                let canvas = p.createCanvas(headerElement.offsetWidth, headerElement.offsetHeight);
+                canvas.parent(headerElement);
+                canvas.style('position', 'absolute');
+                canvas.style('top', '0');
+                canvas.style('left', '0');
+                canvas.style('z-index', '0');
+                canvas.style('opacity', '0.2');
+
+                // Create nodes in layers
+                const nodesPerLayer = Math.ceil(numNodes / numLayers);
+                const layerWidth = p.width / (numLayers + 1);
+
+                for (let layer = 0; layer < numLayers; layer++) {
+                    const x = layerWidth * (layer + 1);
+                    const nodesInThisLayer = layer === 0 || layer === numLayers - 1 ?
+                                            Math.floor(nodesPerLayer / 2) : nodesPerLayer;
+
+                    for (let i = 0; i < nodesInThisLayer; i++) {
+                        const spacing = p.height / (nodesInThisLayer + 1);
+                        const y = spacing * (i + 1);
+
+                        nodes.push({
+                            x: x,
+                            y: y,
+                            layer: layer,
+                            size: p.random(3, 6),
+                            active: false,
+                            activationTime: 0,
+                            pulseSize: 0
+                        });
+                    }
+                }
+
+                // Create connections between layers
+                for (let i = 0; i < nodes.length; i++) {
+                    const nodeA = nodes[i];
+
+                    for (let j = 0; j < nodes.length; j++) {
+                        const nodeB = nodes[j];
+
+                        // Connect to next layer only
+                        if (nodeB.layer === nodeA.layer + 1) {
+                            connections.push({
+                                from: i,
+                                to: j,
+                                weight: p.random(0.1, 1),
+                                active: false,
+                                progress: 0,
+                                speed: p.random(0.02, 0.05)
+                            });
+                        }
+                    }
+                }
+
+                // Activate random input nodes periodically
+                setInterval(() => {
+                    // Find input layer nodes
+                    const inputNodes = nodes.filter(node => node.layer === 0);
+                    // Activate a random input node
+                    const randomNode = p.random(inputNodes);
+                    randomNode.active = true;
+                    randomNode.activationTime = p.millis();
+                }, 2000);
+            };
+
+            p.draw = function() {
+                p.clear();
+
+                // Draw connections
+                for (let conn of connections) {
+                    const fromNode = nodes[conn.from];
+                    const toNode = nodes[conn.to];
+
+                    // Draw connection line
+                    p.stroke(20, 184, 166, 30); // Teal with low opacity
+                    p.strokeWeight(conn.weight);
+                    p.line(fromNode.x, fromNode.y, toNode.x, toNode.y);
+
+                    // Propagate activation
+                    if (fromNode.active && !conn.active) {
+                        conn.active = true;
+                        conn.progress = 0;
+                    }
+
+                    // Draw activation traveling along connection
+                    if (conn.active) {
+                        let x = p.lerp(fromNode.x, toNode.x, conn.progress);
+                        let y = p.lerp(fromNode.y, toNode.y, conn.progress);
+
+                        p.noStroke();
+                        p.fill(20, 184, 166); // Teal
+                        p.ellipse(x, y, 4);
+
+                        // Update progress
+                        conn.progress += conn.speed;
+
+                        // Activate target node when signal arrives
+                        if (conn.progress >= 1) {
+                            toNode.active = true;
+                            toNode.activationTime = p.millis();
+                            conn.active = false;
+                            conn.progress = 0;
+                        }
+                    }
+                }
+
+                // Draw nodes
+                for (let node of nodes) {
+                    // Base node
+                    p.noStroke();
+
+                    if (node.active) {
+                        // Calculate pulse effect
+                        const timeSinceActivation = p.millis() - node.activationTime;
+                        node.pulseSize = p.map(timeSinceActivation, 0, 1000, 20, 0, true);
+
+                        // Draw pulse
+                        p.fill(20, 184, 166, 50); // Teal with low opacity
+                        p.ellipse(node.x, node.y, node.pulseSize);
+
+                        // Draw active node
+                        p.fill(20, 184, 166); // Teal
+                        p.ellipse(node.x, node.y, node.size);
+
+                        // Deactivate after some time
+                        if (timeSinceActivation > 1000) {
+                            node.active = false;
+                        }
+                    } else {
+                        // Draw inactive node
+                        p.fill(20, 184, 166, 100); // Teal with medium opacity
+                        p.ellipse(node.x, node.y, node.size);
+                    }
+                }
+            };
+
+            p.windowResized = function() {
+                let headerElement = document.querySelector('header');
+                p.resizeCanvas(headerElement.offsetWidth, headerElement.offsetHeight);
+
+                // Recalculate node positions
+                const nodesPerLayer = Math.ceil(numNodes / numLayers);
+                const layerWidth = p.width / (numLayers + 1);
+
+                for (let i = 0; i < nodes.length; i++) {
+                    const layer = nodes[i].layer;
+                    const nodesInThisLayer = layer === 0 || layer === numLayers - 1 ?
+                                            Math.floor(nodesPerLayer / 2) : nodesPerLayer;
+
+                    // Find index within layer
+                    let layerIndex = 0;
+                    for (let j = 0; j < i; j++) {
+                        if (nodes[j].layer === layer) {
+                            layerIndex++;
+                        }
+                    }
+
+                    const spacing = p.height / (nodesInThisLayer + 1);
+                    nodes[i].x = layerWidth * (layer + 1);
+                    nodes[i].y = spacing * (layerIndex + 1);
+                }
+            };
+        };
+
+        // About Section - Data Clusters
+        let aboutSketch = function(p) {
+            let clusters = [];
+            const numClusters = 3;
+            const pointsPerCluster = 15;
+
+            p.setup = function() {
+                let aboutElement = document.getElementById('about-ml');
+                let canvas = p.createCanvas(aboutElement.offsetWidth, aboutElement.offsetHeight);
+                canvas.parent(aboutElement);
+                canvas.style('position', 'absolute');
+                canvas.style('top', '0');
+                canvas.style('left', '0');
+                canvas.style('z-index', '0');
+                canvas.style('opacity', '0.1');
+
+                // Create clusters
+                for (let i = 0; i < numClusters; i++) {
+                    const centerX = p.random(p.width * 0.2, p.width * 0.8);
+                    const centerY = p.random(p.height * 0.2, p.height * 0.8);
+                    const clusterRadius = p.random(50, 100);
+
+                    clusters.push({
+                        x: centerX,
+                        y: centerY,
+                        radius: clusterRadius,
+                        color: p.color(20, 184, 166, 150), // Teal with medium opacity
+                        points: []
+                    });
+
+                    // Create points for this cluster
+                    for (let j = 0; j < pointsPerCluster; j++) {
+                        const angle = p.random(p.TWO_PI);
+                        const dist = p.randomGaussian(0, clusterRadius / 2);
+                        const x = centerX + p.cos(angle) * dist;
+                        const y = centerY + p.sin(angle) * dist;
+
+                        clusters[i].points.push({
+                            x: x,
+                            y: y,
+                            size: p.random(2, 5),
+                            angle: p.random(p.TWO_PI),
+                            speed: p.random(0.001, 0.003)
+                        });
+                    }
+                }
+            };
+
+            p.draw = function() {
+                p.clear();
+
+                // Draw clusters and points
+                for (let cluster of clusters) {
+                    // Draw cluster boundary (faintly)
+                    p.noFill();
+                    p.stroke(20, 184, 166, 30); // Teal with low opacity
+                    p.strokeWeight(1);
+                    p.ellipse(cluster.x, cluster.y, cluster.radius * 2);
+
+                    // Draw points
+                    p.noStroke();
+                    p.fill(cluster.color);
+
+                    for (let point of cluster.points) {
+                        p.ellipse(point.x, point.y, point.size);
+
+                        // Orbit around cluster center
+                        const currentDist = p.dist(point.x, point.y, cluster.x, cluster.y);
+                        point.angle += point.speed;
+                        point.x = cluster.x + p.cos(point.angle) * currentDist;
+                        point.y = cluster.y + p.sin(point.angle) * currentDist;
+                    }
+                }
+            };
+
+            p.windowResized = function() {
+                let aboutElement = document.getElementById('about-ml');
+                p.resizeCanvas(aboutElement.offsetWidth, aboutElement.offsetHeight);
+
+                // Adjust cluster positions to fit new canvas size
+                for (let cluster of clusters) {
+                    if (cluster.x > p.width) cluster.x = p.width * 0.8;
+                    if (cluster.y > p.height) cluster.y = p.height * 0.8;
+                }
+            };
+        };
+
+        // Projects Section - Data Flow Visualization
+        let projectsSketch = function(p) {
+            let dataPoints = [];
+            const numPoints = 100;
+
+            p.setup = function() {
+                let projectsElement = document.getElementById('projects');
+                let canvas = p.createCanvas(projectsElement.offsetWidth, projectsElement.offsetHeight);
+                canvas.parent(projectsElement);
+                canvas.style('position', 'absolute');
+                canvas.style('top', '0');
+                canvas.style('left', '0');
+                canvas.style('z-index', '0');
+                canvas.style('opacity', '0.1');
+
+                // Create data points
+                for (let i = 0; i < numPoints; i++) {
+                    dataPoints.push({
+                        x: p.random(p.width),
+                        y: p.random(p.height),
+                        size: p.random(1, 3),
+                        speedX: p.random(-0.5, 0.5),
+                        speedY: p.random(-0.5, 0.5),
+                        neighbors: []
+                    });
+                }
+            };
+
+            p.draw = function() {
+                p.clear();
+
+                // Update neighbors
+                for (let i = 0; i < dataPoints.length; i++) {
+                    dataPoints[i].neighbors = [];
+
+                    for (let j = 0; j < dataPoints.length; j++) {
+                        if (i !== j) {
+                            const d = p.dist(dataPoints[i].x, dataPoints[i].y, dataPoints[j].x, dataPoints[j].y);
+                            if (d < 80) {
+                                dataPoints[i].neighbors.push(j);
+                            }
+                        }
+                    }
+                }
+
+                // Draw connections
+                p.stroke(20, 184, 166, 30); // Teal with low opacity
+                p.strokeWeight(0.5);
+
+                for (let i = 0; i < dataPoints.length; i++) {
+                    for (let j of dataPoints[i].neighbors) {
+                        p.line(dataPoints[i].x, dataPoints[i].y, dataPoints[j].x, dataPoints[j].y);
+                    }
+                }
+
+                // Draw points
+                p.noStroke();
+                p.fill(20, 184, 166); // Teal
+
+                for (let point of dataPoints) {
+                    p.ellipse(point.x, point.y, point.size);
+
+                    // Update position
+                    point.x += point.speedX;
+                    point.y += point.speedY;
+
+                    // Bounce off edges
+                    if (point.x < 0 || point.x > p.width) point.speedX *= -1;
+                    if (point.y < 0 || point.y > p.height) point.speedY *= -1;
+                }
+            };
+
+            p.windowResized = function() {
+                let projectsElement = document.getElementById('projects');
+                p.resizeCanvas(projectsElement.offsetWidth, projectsElement.offsetHeight);
+            };
+        };
+
+        // Skills Section - Floating ML Symbols
+        let skillsSketch = function(p) {
+            let symbols = [];
+            const numSymbols = 20;
+            const mlSymbols = ['AI', 'ML', 'DL', 'NLP', 'CV', 'NN', 'CNN', 'RNN', 'LSTM', 'GAN', 'RAG', 'LLM', 'PyT', 'TF', 'Σ', '∫', '∇', 'λ', 'μ', 'σ'];
+
+            p.setup = function() {
+                let skillsElement = document.getElementById('skills');
+                let canvas = p.createCanvas(skillsElement.offsetWidth, skillsElement.offsetHeight);
+                canvas.parent(skillsElement);
+                canvas.style('position', 'absolute');
+                canvas.style('top', '0');
+                canvas.style('left', '0');
+                canvas.style('z-index', '0');
+                canvas.style('opacity', '0.1');
+
+                for (let i = 0; i < numSymbols; i++) {
+                    symbols.push({
+                        x: p.random(p.width),
+                        y: p.random(p.height),
+                        symbol: p.random(mlSymbols),
+                        size: p.random(12, 24),
+                        speedX: p.random(-0.5, 0.5),
+                        speedY: p.random(-0.5, 0.5),
+                        rotation: p.random(p.TWO_PI),
+                        rotSpeed: p.random(-0.01, 0.01)
+                    });
+                }
+            };
+
+            p.draw = function() {
+                p.clear();
+                p.textAlign(p.CENTER, p.CENTER);
+
+                for (let symbol of symbols) {
+                    p.push();
+                    p.translate(symbol.x, symbol.y);
+                    p.rotate(symbol.rotation);
+                    p.fill(20, 184, 166, 150); // Teal with medium opacity
+                    p.textSize(symbol.size);
+                    p.text(symbol.symbol, 0, 0);
+                    p.pop();
+
+                    // Update position and rotation
+                    symbol.x += symbol.speedX;
+                    symbol.y += symbol.speedY;
+                    symbol.rotation += symbol.rotSpeed;
+
+                    // Wrap around edges
+                    if (symbol.x < 0) symbol.x = p.width;
+                    if (symbol.x > p.width) symbol.x = 0;
+                    if (symbol.y < 0) symbol.y = p.height;
+                    if (symbol.y > p.height) symbol.y = 0;
+                }
+            };
+
+            p.windowResized = function() {
+                let skillsElement = document.getElementById('skills');
+                p.resizeCanvas(skillsElement.offsetWidth, skillsElement.offsetHeight);
+            };
+        };
+
+        // Contact Section - Particle Wave
+        let contactSketch = function(p) {
+            let particles = [];
+            const numParticles = 50;
+            let t = 0;
+
+            p.setup = function() {
+                let contactElement = document.getElementById('contact');
+                let canvas = p.createCanvas(contactElement.offsetWidth, contactElement.offsetHeight);
+                canvas.parent(contactElement);
+                canvas.style('position', 'absolute');
+                canvas.style('top', '0');
+                canvas.style('left', '0');
+                canvas.style('z-index', '0');
+                canvas.style('opacity', '0.15');
+
+                // Create particles
+                for (let i = 0; i < numParticles; i++) {
+                    particles.push({
+                        x: p.random(p.width),
+                        y: p.random(p.height),
+                        size: p.random(2, 5),
+                        speed: p.random(0.5, 2)
+                    });
+                }
+            };
+
+            p.draw = function() {
+                p.clear();
+                p.noStroke();
+
+                for (let particle of particles) {
+                    // Calculate wave effect
+                    const baseY = particle.y;
+                    const waveY = p.sin(t + particle.x * 0.01) * 30;
+
+                    // Draw particle
+                    p.fill(20, 184, 166, 150); // Teal with medium opacity
+                    p.ellipse(particle.x, baseY + waveY, particle.size);
+
+                    // Update position
+                    particle.x -= particle.speed;
+
+                    // Wrap around
+                    if (particle.x < 0) {
+                        particle.x = p.width;
+                        particle.y = p.random(p.height);
+                    }
+                }
+
+                t += 0.02;
+            };
+
+            p.windowResized = function() {
+                let contactElement = document.getElementById('contact');
+                p.resizeCanvas(contactElement.offsetWidth, contactElement.offsetHeight);
+            };
+        };
+
+        // Initialize all sketches when the page is loaded
+        window.addEventListener('load', function() {
+            new p5(headerSketch);
+            new p5(aboutSketch);
+            new p5(projectsSketch);
+            new p5(skillsSketch);
+            new p5(contactSketch);
+        });
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

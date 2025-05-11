@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuguda Muhammed - Engineering Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Three.js and SimplexNoise libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simplex-noise@2.4.0/simplex-noise.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.2/chroma.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .animated-gradient {
+            background: linear-gradient(270deg, #1a202c, #2d3748, #4a5568, #2d3748, #1a202c);
+            background-size: 1000% 1000%;
+            animation: gradientAnimation 30s ease infinite;
+        }
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .card-hover-effect {
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
+        .card-hover-effect:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .section-fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* Add staggered animation for cards */
+        .portfolio-card {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Styles for background animations */
+        header, #portfolios, footer {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Make sure content is above animations */
+        header > div, #portfolios > div, footer > div {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* 3D Background styles */
+        #background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        header {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hidden controls for the 3D background */
+        .hidden-controls {
+            position: absolute;
+            left: -9999px;
+            top: -9999px;
+            visibility: hidden;
+        }
+
+        /* Liquid mercury effect for profile image */
+        .liquid-container {
+            width: 10rem;
+            height: 10rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (min-width: 768px) {
+            .liquid-container {
+                width: 12rem;
+                height: 12rem;
+            }
+        }
+
+        .liquid-border {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #38bdf8;
+            filter: url('#liquid-filter');
+            animation: liquidMove 8s ease-in-out infinite alternate;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
+            transition: transform 0.3s ease-out;
+            transform-origin: center center;
+        }
+
+        @keyframes liquidMove {
+            0% {
+                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            }
+            25% {
+                border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+            }
+            50% {
+                border-radius: 50% 60% 30% 70% / 40% 60% 70% 30%;
+            }
+            75% {
+                border-radius: 60% 40% 70% 30% / 70% 30% 50% 60%;
+            }
+            100% {
+                border-radius: 40% 60% 50% 70% / 30% 70% 50% 60%;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100">
+    <!-- SVG Filters for liquid effects -->
+    <svg width="0" height="0" style="position:absolute">
+        <filter id="liquid-filter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="3" seed="1" result="noise">
+                <animate attributeName="baseFrequency" from="0.01 0.01" to="0.02 0.02" dur="10s" repeatCount="indefinite" />
+            </feTurbulence>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="20" xChannelSelector="R" yChannelSelector="G" result="displacement" />
+            <feGaussianBlur in="displacement" stdDeviation="1.5" result="blur" />
+            <feBlend in="blur" in2="SourceGraphic" mode="normal" />
+        </filter>
+    </svg>
+
+    <!-- Hidden controls for the 3D background -->
+    <div class="hidden-controls">
+        <input type="range" min="1" max="100" id="noiseInput">
+        <input type="range" min="1" max="100" id="heightInput">
+        <a href="#" id="trigger"></a>
+    </div>
+
+    <header class="min-h-screen flex items-center justify-center pt-16">
+        <!-- Canvas for 3D background -->
+        <canvas id="background"></canvas>
+        <div class="text-center p-6 md:p-12 section-fade-in">
+            <div class="liquid-container relative mx-auto mb-6">
+                <div class="liquid-border absolute inset-0 z-0"></div>
+                <img src="https://placehold.co/150x150/38bdf8/ffffff?text=YM" alt="Yuguda Muhammed" class="w-32 h-32 md:w-40 md:h-40 rounded-full relative z-10">
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4" style="text-shadow: 0 0 10px rgba(0,0,0,0.9), 0 0 20px rgba(0,0,0,0.7), 0 0 30px rgba(0,0,0,0.5);">
+                Hi, I'm <span class="text-sky-400" style="text-shadow: 0 0 10px rgba(0,0,0,0.9), 0 0 20px rgba(0,0,0,0.7);">Yuguda Muhammed</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-white mb-8 max-w-3xl mx-auto" style="text-shadow: 0 0 10px rgba(0,0,0,0.9), 0 0 15px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.7);">
+                A passionate engineer solving problems with code and data. I specialize in Backend Systems, Machine Learning, and creating intelligent AI-driven solutions.
+            </p>
+            <a href="#portfolios" class="bg-sky-500 hover:bg-sky-600 text-white font-semibold py-3 px-8 rounded-lg text-lg transition-transform transform hover:scale-105 shadow-lg">
+                Explore My Work
+            </a>
+        </div>
+    </header>
+
+    <section id="portfolios" class="py-16 md:py-24 bg-gray-800 bg-opacity-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16 section-fade-in" style="animation-delay: 0.2s;">
+                Dive Into My Expertise
+            </h2>
+            <div class="grid md:grid-cols-3 gap-8 md:gap-12">
+                <a href="backend.html" class="portfolio-card card-hover-effect bg-gray-700 p-8 rounded-xl shadow-2xl flex flex-col items-center text-center" style="animation-delay: 0.4s;">
+                    <div class="text-5xl text-sky-400 mb-6">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3">Backend Engineering</h3>
+                    <p class="text-gray-300 mb-6">
+                        Building scalable, robust, and efficient server-side applications and APIs.
+                    </p>
+                    <span class="mt-auto text-sky-400 font-medium hover:text-sky-300 transition-colors">View Backend Portfolio &rarr;</span>
+                </a>
+
+                <a href="ml.html" class="portfolio-card card-hover-effect bg-gray-700 p-8 rounded-xl shadow-2xl flex flex-col items-center text-center" style="animation-delay: 0.6s;">
+                    <div class="text-5xl text-teal-400 mb-6">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3">Machine Learning Engineering</h3>
+                    <p class="text-gray-300 mb-6">
+                        Developing and deploying intelligent models for AI-powered insights and automation.
+                    </p>
+                    <span class="mt-auto text-teal-400 font-medium hover:text-teal-300 transition-colors">View ML Portfolio &rarr;</span>
+                </a>
+
+                <a href="combined.html" class="portfolio-card card-hover-effect bg-gray-700 p-8 rounded-xl shadow-2xl flex flex-col items-center text-center" style="animation-delay: 0.8s;">
+                     <div class="text-5xl text-purple-400 mb-6">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3">Full-Stack AI Solutions</h3>
+                    <p class="text-gray-300 mb-6">
+                        Integrating backend prowess with ML intelligence to deliver end-to-end AI applications.
+                    </p>
+                    <span class="mt-auto text-purple-400 font-medium hover:text-purple-300 transition-colors">View Combined Portfolio &rarr;</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 bg-gray-900 text-center">
+        <div class="container mx-auto px-6 section-fade-in" style="animation-delay: 1s;">
+            <p class="text-gray-400 mb-4">&copy; <span id="currentYear"></span> Yuguda Muhammed. All rights reserved.</p>
+            <div class="space-x-6">
+                <a href="mailto:elemenx93@gmail.com" class="text-gray-400 hover:text-sky-400 transition-colors text-xl"><i class="fas fa-envelope"></i></a>
+                <a href="https://linkedin.com/in/your-linkedin-profile" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-sky-400 transition-colors text-xl"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/Yuguda999" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-sky-400 transition-colors text-xl"><i class="fab fa-github"></i></a>
+                </div>
+        </div>
+    </footer>
+
+    <!-- Add p5.js for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Simple scroll reveal for sections (can be replaced with Intersection Observer for more complex scenarios)
+        const sections = document.querySelectorAll('.section-fade-in');
+        const portfolioCards = document.querySelectorAll('.portfolio-card');
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observerCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target); // Optional: stop observing once animated
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+        sections.forEach(section => observer.observe(section));
+        portfolioCards.forEach(card => observer.observe(card));
+
+        // Background animations for different sections
+        // ============================================
+
+        // Header Section - Floating 3D Particles
+        let headerSketch = function(p) {
+            let particles = [];
+            const numParticles = 60;
+
+            p.setup = function() {
+                let headerElement = document.querySelector('header');
+                let canvas = p.createCanvas(headerElement.offsetWidth, headerElement.offsetHeight);
+                canvas.parent(headerElement);
+                canvas.style('position', 'absolute');
+                canvas.style('top', '0');
+                canvas.style('left', '0');
+                canvas.style('z-index', '0');
+                canvas.style('opacity', '0.25');
+
+                for (let i = 0; i < numParticles; i++) {
+                    particles.push({
+                        x: p.random(p.width),
+                        y: p.random(p.height),
+                        z: p.random(0, 500),
+                        size: p.random(2, 6),
+                        speedX: p.random(-0.3, 0.3),
+                        speedY: p.random(-0.3, 0.3),
+                        speedZ: p.random(-0.5, 0.5)
+                    });
+                }
+            };
+
+            p.draw = function() {
+                p.clear();
+
+                // Sort particles by z-depth
+                particles.sort((a, b) => b.z - a.z);
+
+                // Draw connections between particles
+                p.stroke(56, 189, 248, 30); // Sky blue with low opacity
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        let d = p.dist(particles[i].x, particles[i].y, particles[j].x, particles[j].y);
+                        if (d < 150) {
+                            p.strokeWeight(1 - d/150);
+                            p.line(particles[i].x, particles[i].y, particles[j].x, particles[j].y);
+                        }
+                    }
+                }
+
+                // Draw particles
+                for (let particle of particles) {
+                    // Calculate size based on z position (perspective effect)
+                    let pSize = p.map(particle.z, 0, 500, particle.size * 2, particle.size * 0.5);
+                    let alpha = p.map(particle.z, 0, 500, 255, 100);
+
+                    p.noStroke();
+                    p.fill(56, 189, 248, alpha); // Sky blue with depth-based opacity
+                    p.ellipse(particle.x, particle.y, pSize);
+
+                    // Update position
+                    particle.x += particle.speedX;
+                    particle.y += particle.speedY;
+                    particle.z += particle.speedZ;
+
+                    // Wrap around edges
+                    if (particle.x < 0) particle.x = p.width;
+                    if (particle.x > p.width) particle.x = 0;
+                    if (particle.y < 0) particle.y = p.height;
+                    if (particle.y > p.height) particle.y = 0;
+
+                    // Reset z when out of bounds
+                    if (particle.z < 0 || particle.z > 500) {
+                        particle.speedZ *= -1;
+                    }
+                }
+            };
+
+            p.windowResized = function() {
+                let headerElement = document.querySelector('header');
+                p.resizeCanvas(headerElement.offsetWidth, headerElement.offsetHeight);
+            };
+        };
+
+        // Portfolios Section - Digital Rain Effect
+        let portfoliosSketch = function(p) {
+            let drops = [];
+            const numDrops = 50;
+
+            p.setup = function() {
+                let portfoliosElement = document.getElementById('portfolios');
+                let canvas = p.createCanvas(portfoliosElement.offsetWidth, portfoliosElement.offsetHeight);
+                canvas.parent(portfoliosElement);
+                canvas.style('position', 'absolute');
+                canvas.style('top', '0');
+                canvas.style('left', '0');
+                canvas.style('z-index', '0');
+                canvas.style('opacity', '0.15');
+
+                for (let i = 0; i < numDrops; i++) {
+                    drops.push({
+                        x: p.random(p.width),
+                        y: p.random(-300, 0),
+                        length: p.random(20, 80),
+                        speed: p.random(2, 6),
+                        thickness: p.random(1, 3)
+                    });
+                }
+            };
+
+            p.draw = function() {
+                p.clear();
+                p.noStroke();
+
+                for (let drop of drops) {
+                    // Create gradient effect for each drop
+                    for (let i = 0; i < drop.length; i++) {
+                        let alpha = p.map(i, 0, drop.length, 150, 0);
+                        p.fill(56, 189, 248, alpha); // Sky blue with fading opacity
+                        p.rect(drop.x, drop.y - i, drop.thickness, 1);
+                    }
+
+                    // Update position
+                    drop.y += drop.speed;
+
+                    // Reset when off screen
+                    if (drop.y > p.height) {
+                        drop.y = p.random(-300, 0);
+                        drop.x = p.random(p.width);
+                    }
+                }
+            };
+
+            p.windowResized = function() {
+                let portfoliosElement = document.getElementById('portfolios');
+                p.resizeCanvas(portfoliosElement.offsetWidth, portfoliosElement.offsetHeight);
+            };
+        };
+
+        // Footer Section - Subtle Wave Effect
+        let footerSketch = function(p) {
+            let t = 0;
+
+            p.setup = function() {
+                let footerElement = document.querySelector('footer');
+                let canvas = p.createCanvas(footerElement.offsetWidth, footerElement.offsetHeight);
+                canvas.parent(footerElement);
+                canvas.style('position', 'absolute');
+                canvas.style('top', '0');
+                canvas.style('left', '0');
+                canvas.style('z-index', '0');
+                canvas.style('opacity', '0.1');
+            };
+
+            p.draw = function() {
+                p.clear();
+                p.noFill();
+                p.stroke(56, 189, 248); // Sky blue
+
+                for (let i = 0; i < 3; i++) {
+                    p.beginShape();
+                    for (let x = 0; x < p.width; x += 10) {
+                        let y = p.height/2 + p.sin(x * 0.01 + t + i) * 20;
+                        p.vertex(x, y);
+                    }
+                    p.endShape();
+                }
+
+                t += 0.01;
+            };
+
+            p.windowResized = function() {
+                let footerElement = document.querySelector('footer');
+                p.resizeCanvas(footerElement.offsetWidth, footerElement.offsetHeight);
+            };
+        };
+
+        // Initialize all sketches when the page is loaded
+        window.addEventListener('load', function() {
+            new p5(headerSketch);
+            new p5(portfoliosSketch);
+            new p5(footerSketch);
+
+            // Add liquid mercury effect interactivity
+            const liquidBorder = document.querySelector('.liquid-border');
+            const liquidContainer = document.querySelector('.liquid-container');
+
+            if (liquidBorder && liquidContainer) {
+                // Make the liquid effect respond to mouse movement
+                document.addEventListener('mousemove', function(e) {
+                    const rect = liquidContainer.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+
+                    // Calculate distance from mouse to center of container
+                    const distX = (e.clientX - centerX) / window.innerWidth * 20;
+                    const distY = (e.clientY - centerY) / window.innerHeight * 20;
+
+                    // Apply subtle transform based on mouse position
+                    liquidBorder.style.transform = `translate(${distX}px, ${distY}px) scale(1.05)`;
+
+                    // Dynamically change the filter's turbulence
+                    const filter = document.querySelector('#liquid-filter feTurbulence');
+                    if (filter) {
+                        const distance = Math.sqrt(distX * distX + distY * distY);
+                        const newFrequency = 0.01 + (distance / 100);
+                        filter.setAttribute('baseFrequency', `${newFrequency} ${newFrequency}`);
+                    }
+                });
+
+                // Reset on mouse leave
+                document.addEventListener('mouseleave', function() {
+                    liquidBorder.style.transform = 'translate(0, 0) scale(1)';
+                });
+            }
+        });
+    </script>
+
+    <!-- 3D Background Animation Script -->
+    <script>
+        // Initialize the 3D background
+        App({ el: 'background' });
+
+        function App(conf) {
+            conf = {
+                fov: 75,
+                cameraZ: 85, // Moved camera back a bit
+                xyCoef: 60, // More subtle noise pattern
+                zCoef: 8,  // Less extreme height variations
+                lightIntensity: 0.9,
+                ambientColor: 0x000000,
+                light1Color: 0x38bdf8, // Sky blue (matching the portfolio)
+                light2Color: 0x0ea5e9, // Darker blue
+                light3Color: 0x0284c7, // Even darker blue
+                light4Color: 0x7dd3fc, // Lighter blue
+                colorChangeSpeed: 0.001, // Speed of color transition
+                ...conf
+            };
+
+            let renderer, scene, camera;
+            let width, height, cx, cy, wWidth, wHeight;
+
+            let plane;
+            const simplex = new SimplexNoise();
+
+            const mouse = new THREE.Vector2();
+            const mousePlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+            const mousePosition = new THREE.Vector3();
+            const raycaster = new THREE.Raycaster();
+
+            const noiseInput = document.getElementById('noiseInput');
+            const heightInput = document.getElementById('heightInput');
+
+            init();
+
+            function init() {
+                // Get the header element to properly size the canvas
+                const headerElement = document.querySelector('header');
+
+                renderer = new THREE.WebGLRenderer({
+                    canvas: document.getElementById(conf.el),
+                    antialias: true,
+                    alpha: true
+                });
+
+                // Set canvas size to match header
+                renderer.setSize(headerElement.offsetWidth, headerElement.offsetHeight);
+
+                camera = new THREE.PerspectiveCamera(conf.fov);
+                camera.position.z = conf.cameraZ;
+
+                updateSize();
+                window.addEventListener('resize', updateSize, false);
+
+                document.addEventListener('mousemove', e => {
+                    const v = new THREE.Vector3();
+                    camera.getWorldDirection(v);
+                    v.normalize();
+                    mousePlane.normal = v;
+                    mouse.x = (e.clientX / width) * 2 - 1;
+                    mouse.y = - (e.clientY / height) * 2 + 1;
+                    raycaster.setFromCamera(mouse, camera);
+                    raycaster.ray.intersectPlane(mousePlane, mousePosition);
+                });
+
+                initScene();
+                initGui();
+                animate();
+            }
+
+            function initGui() {
+                noiseInput.value = 101 - conf.xyCoef;
+                heightInput.value = conf.zCoef * 100 / 25;
+
+                noiseInput.addEventListener('input', e => {
+                    conf.xyCoef = 101 - noiseInput.value;
+                });
+                heightInput.addEventListener('input', e => {
+                    conf.zCoef = heightInput.value * 25 / 100;
+                });
+
+                document.getElementById('trigger').addEventListener('click', e => {
+                    updateLightsColors();
+                });
+            }
+
+            function initScene() {
+                scene = new THREE.Scene();
+                initLights();
+
+                // Create a gradient material
+                let mat = new THREE.MeshPhongMaterial({
+                    color: 0xffffff,
+                    side: THREE.DoubleSide,
+                    shininess: 50,
+                    specular: 0x111111
+                });
+
+                let geo = new THREE.PlaneBufferGeometry(wWidth, wHeight, wWidth / 2, wHeight / 2);
+                plane = new THREE.Mesh(geo, mat);
+                scene.add(plane);
+
+                plane.rotation.x = -Math.PI / 2 - 0.15; // Slightly less tilted
+                plane.position.y = -30; // Lower position
+                camera.position.z = 65; // Adjusted camera position
+            }
+
+            function initLights() {
+                const r = 30;
+                const y = 10;
+                const lightDistance = 500;
+
+                light1 = new THREE.PointLight(conf.light1Color, conf.lightIntensity, lightDistance);
+                light1.position.set(0, y, r);
+                scene.add(light1);
+                light2 = new THREE.PointLight(conf.light2Color, conf.lightIntensity, lightDistance);
+                light2.position.set(0, -y, -r);
+                scene.add(light2);
+                light3 = new THREE.PointLight(conf.light3Color, conf.lightIntensity, lightDistance);
+                light3.position.set(r, y, 0);
+                scene.add(light3);
+                light4 = new THREE.PointLight(conf.light4Color, conf.lightIntensity, lightDistance);
+                light4.position.set(-r, y, 0);
+                scene.add(light4);
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+
+                animatePlane();
+                animateLights();
+
+                renderer.render(scene, camera);
+            }
+
+            function animatePlane() {
+                gArray = plane.geometry.attributes.position.array;
+                const time = Date.now() * 0.0002;
+
+                // Enhanced mouse influence
+                const mouseInfluence = (mouse.x * mouse.y) * 2;
+
+                for (let i = 0; i < gArray.length; i += 3) {
+                    // Use mouse position to influence the wave pattern
+                    const xCoord = gArray[i] / conf.xyCoef;
+                    const yCoord = gArray[i + 1] / conf.xyCoef;
+
+                    // Create more dynamic waves with mouse influence
+                    gArray[i + 2] = simplex.noise4D(
+                        xCoord,
+                        yCoord,
+                        time,
+                        mouseInfluence
+                    ) * conf.zCoef;
+                }
+                plane.geometry.attributes.position.needsUpdate = true;
+            }
+
+            function animateLights() {
+                const time = Date.now() * 0.001;
+                const d = 50;
+
+                // Position lights in a circular pattern
+                light1.position.x = Math.sin(time * 0.1) * d;
+                light1.position.z = Math.cos(time * 0.2) * d;
+                light2.position.x = Math.cos(time * 0.3) * d;
+                light2.position.z = Math.sin(time * 0.4) * d;
+                light3.position.x = Math.sin(time * 0.5) * d;
+                light3.position.z = Math.sin(time * 0.6) * d;
+                light4.position.x = Math.sin(time * 0.7) * d;
+                light4.position.z = Math.cos(time * 0.8) * d;
+
+                // Gradually change colors based on time and mouse position
+                const hue1 = (time * conf.colorChangeSpeed * 10 + mouse.x * 0.1) % 1;
+                const hue2 = (time * conf.colorChangeSpeed * 15 + mouse.y * 0.1) % 1;
+                const hue3 = (time * conf.colorChangeSpeed * 20 - mouse.x * 0.1) % 1;
+                const hue4 = (time * conf.colorChangeSpeed * 25 - mouse.y * 0.1) % 1;
+
+                // Create colors in the blue spectrum (0.5-0.7 hue range in HSL)
+                const color1 = new THREE.Color().setHSL(0.5 + hue1 * 0.2, 0.7, 0.5);
+                const color2 = new THREE.Color().setHSL(0.5 + hue2 * 0.2, 0.8, 0.6);
+                const color3 = new THREE.Color().setHSL(0.5 + hue3 * 0.2, 0.6, 0.5);
+                const color4 = new THREE.Color().setHSL(0.5 + hue4 * 0.2, 0.7, 0.7);
+
+                light1.color = color1;
+                light2.color = color2;
+                light3.color = color3;
+                light4.color = color4;
+            }
+
+            function updateLightsColors() {
+                conf.light1Color = chroma.random().hex();
+                conf.light2Color = chroma.random().hex();
+                conf.light3Color = chroma.random().hex();
+                conf.light4Color = chroma.random().hex();
+                light1.color = new THREE.Color(conf.light1Color);
+                light2.color = new THREE.Color(conf.light2Color);
+                light3.color = new THREE.Color(conf.light3Color);
+                light4.color = new THREE.Color(conf.light4Color);
+            }
+
+            function updateSize() {
+                // Get header dimensions instead of window dimensions
+                const headerElement = document.querySelector('header');
+                width = headerElement.offsetWidth; cx = width / 2;
+                height = headerElement.offsetHeight; cy = height / 2;
+
+                if (renderer && camera) {
+                    renderer.setSize(width, height);
+                    camera.aspect = width / height;
+                    camera.updateProjectionMatrix();
+                    const wsize = getRendererSize();
+                    wWidth = wsize[0];
+                    wHeight = wsize[1];
+
+                    // Recreate the geometry when resizing to ensure proper wave effect
+                    if (plane) {
+                        const newGeo = new THREE.PlaneBufferGeometry(wWidth, wHeight, wWidth / 2, wHeight / 2);
+                        plane.geometry.dispose();
+                        plane.geometry = newGeo;
+                    }
+                }
+            }
+
+            function getRendererSize() {
+                const cam = new THREE.PerspectiveCamera(camera.fov, camera.aspect);
+                const vFOV = cam.fov * Math.PI / 180;
+                const height = 2 * Math.tan(vFOV / 2) * Math.abs(conf.cameraZ);
+                const width = height * cam.aspect;
+                return [width, height];
+            }
+        }
+    </script>
+</body>
+</html>
