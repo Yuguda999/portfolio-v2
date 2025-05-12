@@ -1,0 +1,109 @@
+\documentclass[11pt,a4paper,sans]{moderncv}
+
+% Modern CV theme
+\moderncvstyle{classic}
+\moderncvcolor{green}
+
+% Character encoding
+\usepackage[utf8]{inputenc}
+\usepackage[scale=0.85]{geometry}
+
+% Personal data
+\name{Yuguda}{Muhammed}
+\email{elemenx93@gmail.com}
+\phone{} % Add your phone number if desired
+\social[linkedin]{yuguda}
+\social[github]{Yuguda999}
+
+\begin{document}
+
+\makecvtitle
+
+\section{Summary}
+Machine Learning Engineer passionate about building ethical and impactful AI solutions. Expertise spans the full ML lifecycle: from data acquisition and preprocessing, model development, and rigorous evaluation, to MLOps practices for robust deployment. Specializing in Natural Language Processing (NLP), Retrieval-Augmented Generation (RAG), predictive modeling, and computer vision.
+
+\section{Technical Skills}
+\subsection{ML \& AI Libraries/Frameworks}
+PyTorch, Scikit-learn, LangChain, OpenAI API, Gemini API, DeepSeek, Transformers, Pandas \& NumPy, Scikit-image
+
+\subsection{ML Concepts \& Techniques}
+Retrieval-Augmented Generation (RAG), NLP (Semantic Search, Text Comprehension, Q\&A), Computer Vision (Image Classification, OCR), Predictive Modeling \& Regression, Clustering (K-Means, Hierarchical), Vector Databases (Qdrant, ChromaDB, Pinecone), MLOps, Prompt Engineering \& LLMs, ETL \& ELT Pipelines, Hypothesis Testing
+
+\subsection{Supporting Tools \& Platforms}
+Python, Docker, Git \& GitHub, GCP \& AWS, NannyML, PyStark, Postman
+
+\section{Projects}
+\cventry{}{Next Word Prediction with Transformers}{}{}{}{
+\begin{itemize}
+\item Implemented multiple transformer architectures for next word prediction
+\item Built an encoder-only transformer from scratch, a GPT-style decoder, and fine-tuned GPT-2 models
+\item Trained models on Sherlock Holmes stories for text generation
+\item Technologies: PyTorch, Transformers, NLP, Hugging Face
+\end{itemize}
+}
+
+\cventry{}{Hybrid LSTM-LR Forecasting}{}{}{}{
+\begin{itemize}
+\item Implemented a hybrid forecasting model for stock price prediction
+\item Combined LSTM neural networks and Linear Regression for improved accuracy
+\item Analyzed historical stock data to predict future price movements
+\item GitHub: \texttt{github.com/Yuguda999/hybrid\_lstm\_lr\_forecasting}
+\end{itemize}
+}
+
+\cventry{}{Receipt Classifier}{}{}{}{
+\begin{itemize}
+\item Developed a machine learning system that classifies receipts as either real or AI-generated
+\item Used a hybrid image-text approach combining EfficientNet-B0 for image features and BERT for text features
+\item Extracted text from images using TrOCR for comprehensive analysis
+\item GitHub: \texttt{github.com/Yuguda999/receipt\_classifier}
+\end{itemize}
+}
+
+\cventry{}{Loan Approval Prediction}{}{}{}{
+\begin{itemize}
+\item Built a machine learning model to predict loan approval status based on applicant information
+\item Analyzed key factors influencing loan decisions through feature importance analysis
+\item Implemented multiple ML algorithms to find the best-performing model
+\item Technologies: Scikit-learn, Pandas, EDA, Classification algorithms
+\end{itemize}
+}
+
+\cventry{}{RAG PDF Parser}{}{}{}{
+\begin{itemize}
+\item Created a tool that processes PDF documents using Retrieval Augmented Generation (RAG)
+\item Implemented extraction, analysis, and querying of content using OpenAI's GPT-4 and embeddings models
+\item Developed concurrent processing, content analysis, and vector embeddings for semantic search
+\item GitHub: \texttt{github.com/Yuguda999/rag\_pdf\_parser}
+\end{itemize}
+}
+
+\cventry{}{CrewAI Trip Planner}{}{}{}{
+\begin{itemize}
+\item Built an AI-powered trip planning system using CrewAI
+\item Designed multiple specialized agents with defined roles, backstories, and goals
+\item Implemented collaborative planning tasks between AI agents
+\item GitHub: \texttt{github.com/Yuguda999/crewai\_trip\_planner}
+\end{itemize}
+}
+
+\cventry{}{Content Repurposer for Social Media}{}{}{}{
+\begin{itemize}
+\item Developed a production-grade service for AI-powered content repurposing
+\item Implemented ingestion of raw blog content and transformation into various social media formats
+\item Utilized OpenAI's GPT models and DALL-E for intelligent content transformation
+\item Created a scalable architecture with FastAPI, Celery, and Redis
+\item GitHub: \texttt{github.com/Yuguda999/content\_repurposer}
+\end{itemize}
+}
+
+\section{Education}
+% Add your education details here
+
+\section{Certifications}
+% Add any relevant certifications here
+
+\section{Languages}
+% Add languages you speak here
+
+\end{document}

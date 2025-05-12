@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuguda Muhammed - Backend Software Engineer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .contact-info {
+            margin-top: 15px;
+        }
+        .contact-info span, .contact-info a {
+            color: #3498db;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+        section {
+            margin-bottom: 25px;
+        }
+        h2 {
+            color: #2c3e50;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+        .job-title {
+            font-weight: bold;
+            display: inline-block;
+        }
+        .job-date {
+            float: right;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .skill-category {
+            flex: 1;
+            min-width: 200px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        .project {
+            margin-bottom: 20px;
+        }
+        .project h3 {
+            margin-bottom: 5px;
+        }
+        .project-description {
+            margin-top: 0;
+        }
+        .project-tech {
+            font-style: italic;
+            color: #7f8c8d;
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+        .print-instructions {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .print-instructions h3 {
+            margin-top: 0;
+        }
+        .print-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .print-button:hover {
+            background-color: #2980b9;
+        }
+        .no-print {
+            display: block;
+        }
+        @media print {
+            body {
+                background-color: white;
+            }
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+                padding: 0;
+            }
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="print-instructions no-print">
+            <h3><i class="fas fa-info-circle"></i> How to save as PDF</h3>
+            <p>To save this resume as a PDF:</p>
+            <ol>
+                <li>Click the "Print Resume" button below</li>
+                <li>In the print dialog, change the destination to "Save as PDF"</li>
+                <li>Click "Save" to download the PDF file</li>
+            </ol>
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                <button class="print-button" onclick="window.print()"><i class="fas fa-print"></i> Print Resume</button>
+                <a href="https://yuguda999.github.io/portfolio-v2/backend.html" target="_blank" style="background-color: #2c3e50; color: white; text-decoration: none; padding: 10px 15px; border-radius: 5px; font-weight: bold; display: inline-flex; align-items: center;">
+                    <i class="fas fa-globe" style="margin-right: 5px;"></i> View Portfolio
+                </a>
+            </div>
+        </div>
+        <header>
+            <h1>YUGUDA MUHAMMED</h1>
+            <h2 style="border:none; color: #3498db;">Backend Software Engineer</h2>
+            <div class="contact-info">
+                <span>Lagos, Nigeria</span>
+                <a href="tel:+2348145243177">+234 814 524 3177</a>
+                <a href="mailto:elemenx93@gmail.com">elemenx93@gmail.com</a>
+                <a href="https://linkedin.com/in/yuguda" target="_blank">linkedin.com/in/yuguda</a>
+                <a href="https://github.com/Yuguda999" target="_blank">github.com/Yuguda999</a>
+                <a href="https://yuguda999.github.io/portfolio-v2/backend.html" target="_blank">Portfolio</a>
+            </div>
+        </header>
+
+        <section>
+            <h2>SUMMARY</h2>
+            <p>
+                Experienced Backend Engineer specializing in building scalable, robust, and efficient server-side applications and APIs.
+                Proficient in Python frameworks (FastAPI, Django, Flask), database management, and cloud services.
+                Passionate about creating clean, maintainable code with a focus on performance optimization and security.
+            </p>
+        </section>
+
+        <section>
+            <h2>TECHNICAL SKILLS</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3>Languages & Frameworks</h3>
+                    <ul>
+                        <li>Python</li>
+                        <li>Django, Django REST Framework</li>
+                        <li>FastAPI</li>
+                        <li>Flask</li>
+                        <li>JavaScript</li>
+                        <li>Celery</li>
+                        <li>PyStark</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Databases & Caching</h3>
+                    <ul>
+                        <li>PostgreSQL</li>
+                        <li>MySQL</li>
+                        <li>Redis</li>
+                        <li>Firebase</li>
+                        <li>Vector Databases (ChromaDB, Qdrant, Pinecone)</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>DevOps & Cloud</h3>
+                    <ul>
+                        <li>AWS (EC2, RDS, S3, ElastiCache, SQS)</li>
+                        <li>Google Cloud Platform</li>
+                        <li>Docker, Docker Compose</li>
+                        <li>GitHub Actions</li>
+                        <li>Nginx</li>
+                        <li>CI/CD Pipelines</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>API & Tools</h3>
+                    <ul>
+                        <li>RESTful API Design</li>
+                        <li>GraphQL</li>
+                        <li>OAuth2, JWT</li>
+                        <li>WebSocket</li>
+                        <li>RabbitMQ</li>
+                        <li>Postman</li>
+                        <li>Git, GitHub</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>PROFESSIONAL EXPERIENCE</h2>
+            <div class="experience">
+                <h3><span class="job-title">Backend/ML Engineer</span> <span class="job-date">Dec 2024 – Present</span></h3>
+                <p style="margin-top: 0;">Bitsaac Inc.</p>
+                <ul>
+                    <li>Designed and deployed ML-powered backend services to support AI-driven insights across fintech and research use cases</li>
+                    <li>Built fraud detection and content classification models using PyTorch and OpenAI APIs, integrated into FastAPI microservices</li>
+                    <li>Implemented Retrieval-Augmented Generation (RAG) systems combining structured and unstructured data for automated market analysis</li>
+                    <li>Integrated NLP models with ChromaDB and LangChain to enable semantic search and natural language Q&A across financial datasets</li>
+                    <li>Engineered the backend for an AI tool assisting users with competitive analysis, using FastAPI, LangChain, ChromaDB, OpenAI, and PostgreSQL</li>
+                    <li>Achieved a 30% improvement in content retrieval speed using vector search and embedding optimization</li>
+                </ul>
+            </div>
+
+            <div class="experience">
+                <h3><span class="job-title">Backend Engineer</span> <span class="job-date">Jan 2024 – Oct 2024</span></h3>
+                <p style="margin-top: 0;">Bitsaac Inc.</p>
+                <ul>
+                    <li>Led the development of backend features for AI-powered applications using Django and DRF</li>
+                    <li>Designed and consumed REST APIs to power web and mobile clients</li>
+                    <li>Integrated PostgreSQL and optimized database queries for scalability</li>
+                    <li>Implemented token-based authentication and role-based authorization</li>
+                    <li>Built automated deployment pipelines on AWS (EC2, S3, RDS, and ElastiCache) using GitHub Actions</li>
+                    <li>Developed backend systems for Bitsaac's AI-powered SaaS tool, enabling real-time web scraping and content analysis</li>
+                    <li>Built and maintained high-throughput APIs for data ingestion and semantic search using vector databases</li>
+                </ul>
+            </div>
+
+            <div class="experience">
+                <h3><span class="job-title">Django Backend Developer</span> <span class="job-date">May 2023 – Jan 2024</span></h3>
+                <p style="margin-top: 0;">Jerota (Contract) | Remote</p>
+                <ul>
+                    <li>Designed and implemented the backend for a music streaming platform using Django and Django REST Framework</li>
+                    <li>Developed user authentication, media upload and management, playlist systems, and real-time streaming endpoints</li>
+                    <li>Integrated AWS S3 for media file storage and used EC2 for application hosting</li>
+                    <li>Built admin tools and analytics dashboard to manage content and monitor user engagement</li>
+                    <li>Wrote unit and integration tests to ensure code quality and stability</li>
+                </ul>
+            </div>
+
+            <div class="experience">
+                <h3><span class="job-title">Django Developer</span> <span class="job-date">Dec 2022 – May 2023</span></h3>
+                <p style="margin-top: 0;">Tech Project (Budgeting System) | Remote (Contract)</p>
+                <ul>
+                    <li>Developed a custom budgeting platform for internal finance operations, handling user management, expense tracking, and analytics</li>
+                    <li>Integrated Django with React frontend, designed normalized database models in PostgreSQL, and optimized complex queries</li>
+                    <li>Implemented features such as budget planning, approval workflows, and dynamic reporting using charts and filters</li>
+                    <li>Ensured secure role-based access control and data encryption for financial records</li>
+                </ul>
+            </div>
+
+            <div class="experience">
+                <h3><span class="job-title">Freelance Backend Engineer</span> <span class="job-date">2021 – Present</span></h3>
+                <p style="margin-top: 0;">Upwork | Remote</p>
+                <ul>
+                    <li>Delivered multiple Django-based projects across domains including EdTech, FinTech, and eCommerce</li>
+                    <li>Developed REST APIs, authentication systems (JWT, OAuth2), and integrated payment gateways like Stripe and Paystack</li>
+                    <li>Contracted by GitHub to work on the Copilot open source plugin infrastructure, focusing on plugin integration and developer experience</li>
+                    <li>Built microservices using Django and FastAPI, connected with external APIs, and deployed via Docker on cloud environments</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>PROJECTS</h2>
+            <div class="project">
+                <h3>CampusPQ</h3>
+                <p class="project-tech">Django, PostgreSQL, OpenAI, VectorDB</p>
+                <ul>
+                    <li>A computer-based testing platform with an AI-powered chatbot for real-time assistance</li>
+                    <li>Integrated OpenAI and vector search functionality for personalized learning experiences</li>
+                    <li>Built role-based dashboards and deployed on AWS with PostgreSQL backend</li>
+                </ul>
+            </div>
+
+            <div class="project">
+                <h3>Fastbot</h3>
+                <p class="project-tech">FastAPI, Qdrant, OpenAI, Redis, PostgreSQL</p>
+                <ul>
+                    <li>AI tool for web content extraction, summarization, and retrieval</li>
+                    <li>Asynchronous API design using FastAPI, with Redis caching and Celery task queues</li>
+                    <li>Implemented a full-stack vector search pipeline and integrated feedback loop</li>
+                </ul>
+            </div>
+
+            <div class="project">
+                <h3>GitHub Copilot Contributions</h3>
+                <p class="project-tech">Contract Work</p>
+                <ul>
+                    <li>Contributed to GitHub's open-source Copilot plugin architecture via Upwork contract</li>
+                    <li>Improved documentation, enhanced plugin extensibility, and built integration tests</li>
+                    <li>Worked on backend architecture supporting code suggestions and developer tools</li>
+                </ul>
+            </div>
+
+            <div class="project">
+                <h3>Audiora - Music & Video Streaming Platform</h3>
+                <p class="project-tech">Django, DRF, PostgreSQL, JWT, Paystack</p>
+                <ul>
+                    <li>Built a Django-based API for a music and video streaming platform</li>
+                    <li>Implemented user management, digital wallet system, campaign management, and streaming rewards</li>
+                    <li>Integrated payment processing with Paystack</li>
+                    <li>GitHub: <a href="https://github.com/Yuguda999/Audiora" target="_blank">github.com/Yuguda999/Audiora</a></li>
+                </ul>
+            </div>
+
+            <div class="project">
+                <h3>Tagora - Visual Search API</h3>
+                <p class="project-tech">FastAPI, CLIP, FAISS, Docker</p>
+                <ul>
+                    <li>Developed a visual search system for finding similar images based on visual content</li>
+                    <li>Utilized CLIP embeddings and FAISS indexing for fast and accurate image similarity search</li>
+                    <li>Exposed functionality through a well-designed REST API</li>
+                    <li>GitHub: <a href="https://github.com/Yuguda999/Tagora" target="_blank">github.com/Yuguda999/Tagora</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>EDUCATION</h2>
+            <div class="education">
+                <h3>Ahmadu Bello University, Zaria</h3>
+                <p>B.Sc. Physics — 2018 – 2024</p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

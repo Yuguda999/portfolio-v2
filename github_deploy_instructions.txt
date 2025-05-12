@@ -1,0 +1,61 @@
+# GitHub Pages Deployment Instructions
+
+## 1. Create a GitHub Repository
+1. Go to https://github.com/new
+2. Name your repository: "portfolio" or "my-portfolio"
+3. Add a description (optional)
+4. Make it public
+5. Don't initialize with a README, .gitignore, or license
+6. Click "Create repository"
+
+## 2. Connect Your Local Repository to GitHub
+Run these commands in your terminal, replacing YOUR_USERNAME with your GitHub username:
+
+```bash
+# Navigate to your project directory
+cd /home/yms/Development/my_portfolio
+
+# Connect to the remote repository
+git remote add origin https://github.com/YOUR_USERNAME/portfolio.git
+
+# Push your code to GitHub
+git push -u origin main
+```
+
+## 3. Configure GitHub Pages
+1. Go to your repository on GitHub
+2. Click on "Settings"
+3. Scroll down to the "GitHub Pages" section
+4. Under "Source", select "main" branch
+5. Click "Save"
+6. Wait a few minutes for your site to be published
+7. You'll see a message with the URL where your site is published (usually https://YOUR_USERNAME.github.io/portfolio/)
+
+## 4. Custom Domain (Optional)
+If you want to use a custom domain:
+1. In the GitHub Pages section of repository settings
+2. Enter your custom domain in the "Custom domain" field
+3. Click "Save"
+4. Configure your domain's DNS settings as instructed
+
+## 5. Updating Your Portfolio
+Whenever you make changes to your portfolio:
+
+```bash
+# Add your changes
+git add .
+
+# Commit your changes
+git commit -m "Description of changes"
+
+# Push to GitHub
+git push
+```
+
+Your site will automatically update after each push.
+
+## Troubleshooting
+- If your site doesn't appear, check the GitHub Pages section in repository settings for any error messages
+- Make sure your repository is public
+- Verify that your HTML files are properly formatted
+- The main page should be named index.html

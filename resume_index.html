@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuguda Muhammed - Resumes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        .resume-options {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        .resume-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            width: 300px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+        .resume-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        .resume-card i {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .backend-icon {
+            color: #3498db;
+        }
+        .ml-icon {
+            color: #16a085;
+        }
+        .resume-card h2 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .resume-card p {
+            color: #7f8c8d;
+            margin-bottom: 25px;
+        }
+        .resume-button {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .backend-button {
+            background-color: #3498db;
+            color: white;
+        }
+        .backend-button:hover {
+            background-color: #2980b9;
+        }
+        .ml-button {
+            background-color: #16a085;
+            color: white;
+        }
+        .ml-button:hover {
+            background-color: #138a72;
+        }
+        .back-link {
+            margin-top: 40px;
+            display: inline-block;
+            color: #7f8c8d;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            color: #2c3e50;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Yuguda Muhammed - Professional Resumes</h1>
+        <p>Please select the resume you would like to view:</p>
+
+        <div class="resume-options">
+            <div class="resume-card">
+                <i class="fas fa-cogs backend-icon"></i>
+                <h2>Backend Software Engineer</h2>
+                <p>Specialized resume highlighting backend development skills, API design, and server-side architecture.</p>
+                <a href="backend_resume.html" class="resume-button backend-button">View Resume</a>
+            </div>
+
+            <div class="resume-card">
+                <i class="fas fa-brain ml-icon"></i>
+                <h2>Machine Learning Engineer</h2>
+                <p>Specialized resume highlighting ML/AI expertise, data science skills, and intelligent systems development.</p>
+                <a href="ml_resume.html" class="resume-button ml-button">View Resume</a>
+            </div>
+
+            <div class="resume-card" style="margin-top: 30px;">
+                <i class="fas fa-layer-group" style="color: #9b59b6; font-size: 48px; margin-bottom: 20px;"></i>
+                <h2>Full-Stack AI Engineer</h2>
+                <p>Combined resume showcasing both backend and ML skills for integrated AI solution development.</p>
+                <a href="combined_resume.html" class="resume-button" style="background-color: #9b59b6; color: white;">View Resume</a>
+            </div>
+        </div>
+
+        <div style="margin-top: 40px; display: flex; justify-content: center; gap: 20px;">
+            <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Local Portfolio</a>
+            <a href="https://yuguda999.github.io/portfolio-v2/" target="_blank" class="back-link" style="color: #3498db;"><i class="fas fa-globe"></i> View Online Portfolio</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuguda Muhammed - Full-Stack AI Engineer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .contact-info {
+            margin-top: 15px;
+        }
+        .contact-info span, .contact-info a {
+            color: #9b59b6;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+        section {
+            margin-bottom: 25px;
+        }
+        h2 {
+            color: #2c3e50;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #9b59b6;
+            margin-bottom: 5px;
+        }
+        .job-title {
+            font-weight: bold;
+            display: inline-block;
+        }
+        .job-date {
+            float: right;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .skill-category {
+            flex: 1;
+            min-width: 200px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        .project {
+            margin-bottom: 20px;
+        }
+        .project h3 {
+            margin-bottom: 5px;
+        }
+        .project-description {
+            margin-top: 0;
+        }
+        .project-tech {
+            font-style: italic;
+            color: #7f8c8d;
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+        .print-instructions {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .print-instructions h3 {
+            margin-top: 0;
+        }
+        .print-button {
+            background-color: #9b59b6;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .print-button:hover {
+            background-color: #8e44ad;
+        }
+        .no-print {
+            display: block;
+        }
+        @media print {
+            body {
+                background-color: white;
+            }
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+                padding: 0;
+            }
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="print-instructions no-print">
+            <h3><i class="fas fa-info-circle"></i> How to save as PDF</h3>
+            <p>To save this resume as a PDF:</p>
+            <ol>
+                <li>Click the "Print Resume" button below</li>
+                <li>In the print dialog, change the destination to "Save as PDF"</li>
+                <li>Click "Save" to download the PDF file</li>
+            </ol>
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                <button class="print-button" onclick="window.print()"><i class="fas fa-print"></i> Print Resume</button>
+                <a href="https://yuguda999.github.io/portfolio-v2/combined.html" target="_blank" style="background-color: #2c3e50; color: white; text-decoration: none; padding: 10px 15px; border-radius: 5px; font-weight: bold; display: inline-flex; align-items: center;">
+                    <i class="fas fa-globe" style="margin-right: 5px;"></i> View Portfolio
+                </a>
+            </div>
+        </div>
+        <header>
+            <h1>YUGUDA MUHAMMED</h1>
+            <h2 style="border:none; color: #9b59b6;">Full-Stack AI Engineer</h2>
+            <div class="contact-info">
+                <span>Lagos, Nigeria</span>
+                <a href="tel:+2348145243177">+234 814 524 3177</a>
+                <a href="mailto:elemenx93@gmail.com">elemenx93@gmail.com</a>
+                <a href="https://linkedin.com/in/yuguda" target="_blank">linkedin.com/in/yuguda</a>
+                <a href="https://github.com/Yuguda999" target="_blank">github.com/Yuguda999</a>
+                <a href="https://yuguda999.github.io/portfolio-v2/combined.html" target="_blank">Portfolio</a>
+            </div>
+        </header>
+
+        <section>
+            <h2>SUMMARY</h2>
+            <p>
+                Full-Stack AI Engineer with expertise in both backend development and machine learning. Specializing in building
+                end-to-end AI-powered applications that combine robust backend systems with intelligent ML capabilities.
+                Experienced in developing scalable APIs, designing ML pipelines, and implementing Retrieval-Augmented Generation (RAG)
+                systems. Passionate about creating clean, maintainable code and delivering impactful AI solutions.
+            </p>
+        </section>
+
+        <section>
+            <h2>TECHNICAL SKILLS</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3>Backend Development</h3>
+                    <ul>
+                        <li>Python (Django, FastAPI, Flask)</li>
+                        <li>RESTful & GraphQL APIs</li>
+                        <li>PostgreSQL, MySQL, Redis</li>
+                        <li>Authentication (JWT, OAuth2)</li>
+                        <li>Microservices Architecture</li>
+                        <li>WebSockets, RabbitMQ</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Machine Learning & AI</h3>
+                    <ul>
+                        <li>PyTorch, Scikit-learn</li>
+                        <li>LangChain, Transformers</li>
+                        <li>NLP & Computer Vision</li>
+                        <li>RAG Systems</li>
+                        <li>Vector Databases (ChromaDB, Qdrant)</li>
+                        <li>LLM Integration (OpenAI, Gemini)</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>DevOps & Cloud</h3>
+                    <ul>
+                        <li>AWS (EC2, S3, RDS, ElastiCache)</li>
+                        <li>Google Cloud Platform</li>
+                        <li>Docker, Docker Compose</li>
+                        <li>CI/CD (GitHub Actions)</li>
+                        <li>Nginx, Load Balancing</li>
+                        <li>Monitoring & Logging</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>PROFESSIONAL EXPERIENCE</h2>
+            <div class="experience">
+                <h3><span class="job-title">Backend/ML Engineer</span> <span class="job-date">Dec 2024 – Present</span></h3>
+                <p style="margin-top: 0;">Bitsaac Inc.</p>
+                <ul>
+                    <li>Designed and deployed ML-powered backend services to support AI-driven insights across fintech and research use cases</li>
+                    <li>Built fraud detection and content classification models using PyTorch and OpenAI APIs, integrated into FastAPI microservices</li>
+                    <li>Implemented Retrieval-Augmented Generation (RAG) systems combining structured and unstructured data for automated market analysis</li>
+                    <li>Integrated NLP models with ChromaDB and LangChain to enable semantic search and natural language Q&A across financial datasets</li>
+                    <li>Led development of a smart analytics engine for social media automation and user behavior insights using transformers</li>
+                    <li>Achieved a 30% improvement in content retrieval speed using vector search and embedding optimization</li>
+                </ul>
+            </div>
+
+            <div class="experience">
+                <h3><span class="job-title">Backend Engineer</span> <span class="job-date">Jan 2024 – Oct 2024</span></h3>
+                <p style="margin-top: 0;">Bitsaac Inc.</p>
+                <ul>
+                    <li>Developed backend systems for Bitsaac's AI-powered SaaS tool, enabling real-time web scraping and content analysis</li>
+                    <li>Built and maintained high-throughput APIs for data ingestion and semantic search using vector databases</li>
+                    <li>Designed microservices for social media automation workflows with secure integrations for social media APIs</li>
+                    <li>Deployed applications on Google Cloud Platform, implementing Firebase authentication and CI/CD with GitHub Actions</li>
+                    <li>Integrated PostgreSQL and optimized database queries for scalability, achieving 30% query efficiency boost</li>
+                </ul>
+            </div>
+
+            <div class="experience">
+                <h3><span class="job-title">Django Backend Developer</span> <span class="job-date">May 2023 – Jan 2024</span></h3>
+                <p style="margin-top: 0;">Jerota (Contract) | Remote</p>
+                <ul>
+                    <li>Designed and implemented the backend for a music streaming platform using Django and Django REST Framework</li>
+                    <li>Developed user authentication, media upload and management, playlist systems, and real-time streaming endpoints</li>
+                    <li>Integrated AWS S3 for media file storage and used EC2 for application hosting</li>
+                    <li>Built admin tools and analytics dashboard to manage content and monitor user engagement</li>
+                </ul>
+            </div>
+
+            <div class="experience">
+                <h3><span class="job-title">Freelance Full-Stack AI Engineer</span> <span class="job-date">2021 – Present</span></h3>
+                <p style="margin-top: 0;">Upwork | Remote</p>
+                <ul>
+                    <li>Delivered multiple end-to-end AI-powered applications across domains including EdTech, FinTech, and eCommerce</li>
+                    <li>Developed REST APIs, authentication systems, and integrated payment gateways like Stripe and Paystack</li>
+                    <li>Created NLP solutions for text classification, sentiment analysis, and information extraction</li>
+                    <li>Implemented RAG systems for document understanding and intelligent Q&A capabilities</li>
+                    <li>Contracted by GitHub to work on the Copilot open source plugin infrastructure</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>PROJECTS</h2>
+            <div class="project">
+                <h3>CampusPQ: AI-Enhanced CBT</h3>
+                <p class="project-tech">Django, PostgreSQL, OpenAI, VectorDB, AWS</p>
+                <ul>
+                    <li>Computer-based testing platform with AI-driven recommendations and chatbot guidance</li>
+                    <li>Backend built with Django and PostgreSQL, leveraging OpenAI and VectorDBs for intelligent content discovery</li>
+                    <li>Implemented personalized student support with AI-powered question recommendations</li>
+                    <li>Built role-based dashboards and deployed on AWS with PostgreSQL backend</li>
+                </ul>
+            </div>
+
+            <div class="project">
+                <h3>Content Repurposer for Social Media</h3>
+                <p class="project-tech">FastAPI, OpenAI, DALL-E, Celery, Redis</p>
+                <ul>
+                    <li>Production-grade service that ingests raw blog content and orchestrates AI-powered repurposing into various social media formats</li>
+                    <li>Used OpenAI's GPT models and DALL-E for intelligent content transformation with a scalable architecture</li>
+                    <li>Created a scalable architecture with FastAPI, Celery, and Redis</li>
+                    <li>GitHub: <a href="https://github.com/Yuguda999/content_repurposer" target="_blank">github.com/Yuguda999/content_repurposer</a></li>
+                </ul>
+            </div>
+
+            <div class="project">
+                <h3>RAG PDF Parser</h3>
+                <p class="project-tech">OpenAI, LangChain, Vector Embeddings, Concurrent Processing</p>
+                <ul>
+                    <li>Tool that processes PDF documents using Retrieval Augmented Generation (RAG)</li>
+                    <li>Implemented extraction, analysis, and querying of content using OpenAI's GPT-4 and embeddings models</li>
+                    <li>Developed concurrent processing, content analysis, and vector embeddings for semantic search</li>
+                    <li>GitHub: <a href="https://github.com/Yuguda999/rag_pdf_parser" target="_blank">github.com/Yuguda999/rag_pdf_parser</a></li>
+                </ul>
+            </div>
+
+            <div class="project">
+                <h3>CrewAI Trip Planner</h3>
+                <p class="project-tech">CrewAI, LangChain, Multi-Agent Systems</p>
+                <ul>
+                    <li>AI-powered trip planning system built with CrewAI that uses multiple specialized agents</li>
+                    <li>Designed multiple specialized agents with defined roles, backstories, and goals</li>
+                    <li>Implemented collaborative planning tasks between AI agents</li>
+                    <li>GitHub: <a href="https://github.com/Yuguda999/crewai_trip_planner" target="_blank">github.com/Yuguda999/crewai_trip_planner</a></li>
+                </ul>
+            </div>
+
+            <div class="project">
+                <h3>PocketClinic - AI Healthcare Assistant</h3>
+                <p class="project-tech">FastAPI, NLP, WHO Protocols, SMS/Voice Integration</p>
+                <ul>
+                    <li>AI-powered healthcare assistant designed to help healthcare workers in resource-constrained settings</li>
+                    <li>Triage patients through SMS or voice messages using WHO protocols to analyze symptoms</li>
+                    <li>Implemented secure patient data handling and integration with local healthcare systems</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>EDUCATION</h2>
+            <div class="education">
+                <h3>Ahmadu Bello University, Zaria</h3>
+                <p>B.Sc. Physics — 2018 – 2024</p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

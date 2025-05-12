@@ -180,9 +180,14 @@
             <p class="text-xl md:text-2xl text-white mb-8 max-w-3xl mx-auto" style="text-shadow: 0 0 10px rgba(0,0,0,0.9), 0 0 15px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.7);">
                 A passionate engineer solving problems with code and data. I specialize in Backend Systems, Machine Learning, and creating intelligent AI-driven solutions.
             </p>
-            <a href="#portfolios" class="bg-sky-500 hover:bg-sky-600 text-white font-semibold py-3 px-8 rounded-lg text-lg transition-transform transform hover:scale-105 shadow-lg">
-                Explore My Work
-            </a>
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <a href="#portfolios" class="bg-sky-500 hover:bg-sky-600 text-white font-semibold py-3 px-8 rounded-lg text-lg transition-transform transform hover:scale-105 shadow-lg">
+                    Explore My Work
+                </a>
+                <a href="resume.html" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-8 rounded-lg text-lg transition-transform transform hover:scale-105 shadow-lg">
+                    <i class="fas fa-file-alt mr-2"></i> View Resumes
+                </a>
+            </div>
         </div>
     </header>
 
@@ -191,7 +196,7 @@
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16 section-fade-in" style="animation-delay: 0.2s;">
                 Dive Into My Expertise
             </h2>
-            <div class="grid md:grid-cols-3 gap-8 md:gap-12">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-6">
                 <a href="backend.html" class="portfolio-card card-hover-effect bg-gray-700 p-8 rounded-xl shadow-2xl flex flex-col items-center text-center" style="animation-delay: 0.4s;">
                     <div class="text-5xl text-sky-400 mb-6">
                         <i class="fas fa-cogs"></i>
@@ -224,6 +229,17 @@
                     </p>
                     <span class="mt-auto text-purple-400 font-medium hover:text-purple-300 transition-colors">View Combined Portfolio &rarr;</span>
                 </a>
+
+                <a href="resume.html" class="portfolio-card card-hover-effect bg-gray-700 p-8 rounded-xl shadow-2xl flex flex-col items-center text-center" style="animation-delay: 1.0s;">
+                     <div class="text-5xl text-amber-400 mb-6">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3">Professional Resumes</h3>
+                    <p class="text-gray-300 mb-6">
+                        Tailored resumes highlighting my expertise in different domains for various career opportunities.
+                    </p>
+                    <span class="mt-auto text-amber-400 font-medium hover:text-amber-300 transition-colors">View Resumes &rarr;</span>
+                </a>
             </div>
         </div>
     </section>
@@ -235,7 +251,14 @@
                 <a href="mailto:elemenx93@gmail.com" class="text-gray-400 hover:text-sky-400 transition-colors text-xl"><i class="fas fa-envelope"></i></a>
                 <a href="https://linkedin.com/in/yuguda" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-sky-400 transition-colors text-xl"><i class="fab fa-linkedin"></i></a>
                 <a href="https://github.com/Yuguda999" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-sky-400 transition-colors text-xl"><i class="fab fa-github"></i></a>
-                </div>
+                <a href="resume.html" class="text-gray-400 hover:text-sky-400 transition-colors text-xl"><i class="fas fa-file-alt"></i></a>
+            </div>
+            <div class="mt-4 text-sm">
+                <a href="backend.html" class="text-gray-500 hover:text-sky-400 mx-2">Backend</a> |
+                <a href="ml.html" class="text-gray-500 hover:text-sky-400 mx-2">ML</a> |
+                <a href="combined.html" class="text-gray-500 hover:text-sky-400 mx-2">Combined</a> |
+                <a href="resume.html" class="text-gray-500 hover:text-sky-400 mx-2">Resumes</a>
+            </div>
         </div>
     </footer>
 

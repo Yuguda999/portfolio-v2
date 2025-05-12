@@ -1,0 +1,103 @@
+\documentclass[11pt,a4paper,sans]{moderncv}
+
+% Modern CV theme
+\moderncvstyle{classic}
+\moderncvcolor{blue}
+
+% Character encoding
+\usepackage[utf8]{inputenc}
+\usepackage[scale=0.85]{geometry}
+
+% Personal data
+\name{Yuguda}{Muhammed}
+\email{elemenx93@gmail.com}
+\phone{} % Add your phone number if desired
+\social[linkedin]{yuguda}
+\social[github]{Yuguda999}
+
+\begin{document}
+
+\makecvtitle
+
+\section{Summary}
+Experienced Backend Engineer specializing in building scalable, robust, and efficient server-side applications and APIs. Proficient in Python frameworks (FastAPI, Django, Flask), database management, and cloud services. Passionate about creating clean, maintainable code with a focus on performance optimization and security.
+
+\section{Technical Skills}
+\subsection{Languages \& Frameworks}
+Python, FastAPI, Django (DRF), Flask, JavaScript (Node.js - Basic)
+
+\subsection{Databases \& Caching}
+PostgreSQL, MySQL, Redis, Vector Databases (Qdrant, ChromaDB)
+
+\subsection{DevOps \& Cloud}
+Docker, Microservices, AWS, GCP, Nginx, CI/CD
+
+\subsection{API Development}
+RESTful API Design, GraphQL (Basics), Authentication (JWT, OAuth), API Documentation
+
+\subsection{Tools \& Practices}
+Git, GitHub, Agile Methodologies, Test-Driven Development, Postman
+
+\section{Professional Experience}
+\cventry{}{Backend Engineer}{Bitsaac Inc.}{}{}{
+\begin{itemize}
+\item Developed scalable backend systems for AI products using FastAPI, Flask, and PostgreSQL
+\item Engineered RESTful APIs for social listening, content generation, and marketing automation
+\item Integrated Firebase, Google Sheets, and social media APIs for comprehensive data solutions
+\item Achieved 30\% query efficiency boost through database optimization and caching strategies
+\item Implemented robust authentication and authorization systems using JWT
+\end{itemize}
+}
+
+\section{Projects}
+\cventry{}{CampusPQ}{}{}{}{
+\begin{itemize}
+\item Built a CBT platform with AI-based recommendations and chatbot guidance for students
+\item Utilized Django, PostgreSQL, and AWS for a scalable and reliable architecture
+\item Implemented vector embeddings and similarity search for intelligent content discovery
+\end{itemize}
+}
+
+\cventry{}{FastAPI AI Chatbot}{}{}{}{
+\begin{itemize}
+\item Developed a scalable chatbot API integrated with OpenAI's GPT models
+\item Implemented user authentication, chat threads with history tracking, and Redis caching
+\item Created background task handling with Celery for improved performance
+\end{itemize}
+}
+
+\cventry{}{Audiora - Music \& Video Streaming Platform}{}{}{}{
+\begin{itemize}
+\item Built a Django-based API for a music and video streaming platform
+\item Implemented user management, digital wallet system, campaign management, and streaming rewards
+\item Integrated payment processing with Paystack
+\item GitHub: \texttt{github.com/Yuguda999/Audiora}
+\end{itemize}
+}
+
+\cventry{}{URL Shortener API}{}{}{}{
+\begin{itemize}
+\item Created a RESTful API for URL shortening with Django and Django Rest Framework
+\item Implemented features for creating short URLs, retrieving original URLs, and viewing access statistics
+\item Designed a clean and intuitive API with comprehensive documentation
+\end{itemize}
+}
+
+\cventry{}{Tagora - Visual Search API}{}{}{}{
+\begin{itemize}
+\item Developed a visual search system for finding similar images based on visual content
+\item Utilized CLIP embeddings and FAISS indexing for fast and accurate image similarity search
+\item Exposed functionality through a well-designed REST API
+\end{itemize}
+}
+
+\section{Education}
+% Add your education details here
+
+\section{Certifications}
+% Add any relevant certifications here
+
+\section{Languages}
+% Add languages you speak here
+
+\end{document}
